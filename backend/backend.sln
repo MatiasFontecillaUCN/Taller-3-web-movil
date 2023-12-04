@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileHub", "MobileHub\MobileHub.csproj", "{921AEE64-3446-406D-8A67-D2273D5CA1BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileHub", "MobileHub\MobileHub.csproj", "{A41CB2F3-3930-41A3-A3DD-B7266A0BD191}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{921AEE64-3446-406D-8A67-D2273D5CA1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{921AEE64-3446-406D-8A67-D2273D5CA1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{921AEE64-3446-406D-8A67-D2273D5CA1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{921AEE64-3446-406D-8A67-D2273D5CA1BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41CB2F3-3930-41A3-A3DD-B7266A0BD191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41CB2F3-3930-41A3-A3DD-B7266A0BD191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41CB2F3-3930-41A3-A3DD-B7266A0BD191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41CB2F3-3930-41A3-A3DD-B7266A0BD191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
