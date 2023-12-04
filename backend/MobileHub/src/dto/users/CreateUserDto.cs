@@ -15,6 +15,13 @@ namespace MobileHub.src.dto.users
         public string Id { get; set; } = null!;
 
         /// <summary>
+        /// Correo electrónico requerido del cliente. Debe ser una dirección de correo electrónico válida.
+        /// </summary>
+        [EmailAddress]
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        /// <summary>
         /// Nombre del usuario.
         /// </summary>
         [Required]

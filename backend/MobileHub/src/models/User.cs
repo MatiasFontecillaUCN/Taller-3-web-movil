@@ -19,6 +19,12 @@ namespace MobileHub.src.models
         public string Fullname { get; set; } = string.Empty;
 
         /// <summary>
+        /// Correo electrónico del usuario.
+        /// </summary>
+        public string Email { get; set; } = string.Empty;
+
+
+        /// <summary>
         /// Año de nacimiento del usuario.
         /// </summary>
         public int BirthYear { get; set; }
@@ -26,11 +32,11 @@ namespace MobileHub.src.models
         /// <summary>
         /// Hash de la contraseña.
         /// </summary>
-        public string Password { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
 
         /// <summary>
         /// Sal de la contraseña.
         /// </summary>
-        public string Password_Salt { get; set; } = string.Empty;
+        public string PasswordSalt { get; set; } = string.Empty;
     }
 }

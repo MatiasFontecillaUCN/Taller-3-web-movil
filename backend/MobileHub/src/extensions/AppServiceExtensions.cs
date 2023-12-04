@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MobileHub.src.data;
 using MobileHub.src.repositories;
 using MobileHub.src.repositories.interfaces;
+using MobileHub.src.services;
+using MobileHub.src.services.interfaces;
 
 namespace MobileHub.src.extensions
 {
@@ -48,7 +50,7 @@ namespace MobileHub.src.extensions
         /// <param name="services">El IServiceCollection al que agregar los servicios.</param>
         private static void AddServices(IServiceCollection services)
         {
-            
+            services.AddScoped<IAuthService, AuthService>();
         }
 
         /// <summary>
