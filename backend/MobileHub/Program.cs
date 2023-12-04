@@ -1,3 +1,10 @@
+using System.Text;
+using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using MobileHub.src.data;
+using MobileHub.src.extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +12,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+Env.Load();
+string token = Env.GetString("TOKEN");
+
+if (token == null)
+{
+    throw new InvalidOperationException("TOKEN configuration value is not set.");
+}
+
+builder.Services.AddAuthentication().AddJwtBearer(opt =>
+{
+    opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(token))
+    };
+});
+
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlite("Data Source=AppDatabase.db"));
+
+builder.Services.AddApplicationServices(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -19,6 +50,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5173");
+});
 
 app.MapControllers();
 
