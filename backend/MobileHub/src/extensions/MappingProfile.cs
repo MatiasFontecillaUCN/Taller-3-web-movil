@@ -18,8 +18,8 @@ namespace MobileHub.src.extensions
         /// </summary>
         public MappingProfile()
         {
-            // Mapeo de User a UserDto
             CreateMap<User, CreateUserDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }
