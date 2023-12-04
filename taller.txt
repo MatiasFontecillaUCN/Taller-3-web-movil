@@ -1,0 +1,7 @@
+Usuario
+	Fullname
+	birth year
+	RUT -> contraseña sera el rut son puntos ni guion
+	password
+	password_salt
+	

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MobileHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff760b0be4cfbdde90f8f09f3ac5ebb8d1fdfc57")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MobileHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MobileHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
