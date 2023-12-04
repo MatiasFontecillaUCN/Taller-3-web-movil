@@ -1,6 +1,6 @@
 import { PaperProvider, MD3LightTheme as Theme } from "react-native-paper";
+import HomeScreen from "../components/HomeScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Slot } from "expo-router";
 
 const theme = {
     ...Theme,
@@ -11,10 +11,12 @@ const theme = {
     }
 }
 
-export default function HomeLayout(){
+export default function Index(){
+  return (
     <PaperProvider theme={theme}>
       <SafeAreaProvider>
-        <Slot/>
+        <HomeScreen />
       </SafeAreaProvider>
     </PaperProvider>
-}
+  );
+};
