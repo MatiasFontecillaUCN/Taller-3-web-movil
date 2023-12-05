@@ -51,6 +51,8 @@ namespace MobileHub.src.extensions
         private static void AddServices(IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IMapperService, MapperService>();
+            services.AddScoped<IUsersService, UsersService>();
         }
 
         /// <summary>

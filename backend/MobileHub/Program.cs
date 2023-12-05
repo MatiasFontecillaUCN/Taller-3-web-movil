@@ -2,6 +2,7 @@ using System.Text;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MobileHub.src.data;
 using MobileHub.src.extensions;
 
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 Env.Load();
 string token = Env.GetString("TOKEN");
 
@@ -31,7 +33,13 @@ builder.Services.AddAuthentication().AddJwtBearer(opt =>
     };
 });
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mobile Hub", Version = "v1" });
+
+    // Customize schema Ids to avoid conflicts
+    c.CustomSchemaIds(type => type.FullName);
+});
 
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlite("Data Source=AppDatabase.db"));
 

@@ -47,8 +47,14 @@ namespace MobileHub.src.services
             {
                 throw new BadHttpRequestException("Ese usuario ya existe");
             }
-            user = await _usersRepository.Add(mappedUser);
-            return user;
+
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(mappedUser.Id.Replace(",", "").Replace("-", ""), salt);
+            mappedUser.PasswordSalt = salt;
+            mappedUser.PasswordHash = passwordHash;
+
+            // user = await _usersRepository.Add(mappedUser);
+            return mappedUser;
         }
 
         /// <summary>

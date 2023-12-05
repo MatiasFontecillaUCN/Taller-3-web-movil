@@ -52,7 +52,7 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <param name="status">El estado de los usuarios a obtener.</param>
         /// <returns>Una lista de usuarios.</returns>
-        [HttpGet("read/{status}")]
+        [HttpGet("read")]
         public async Task<List<UserDto>> GetAllUsers()
         {
             var users = await _userService.GetAll();

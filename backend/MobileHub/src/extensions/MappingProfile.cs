@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using MobileHub.src.dto.users;
 using MobileHub.src.models;
@@ -18,8 +14,8 @@ namespace MobileHub.src.extensions
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<User, CreateUserDto>();
-            CreateMap<User, UserDto>();
+            CreateMap<CreateUserDto, User>();
+            CreateMap<UserDto, User>();
         }
     }
 }
