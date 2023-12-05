@@ -53,7 +53,7 @@ namespace MobileHub.src.services
             mappedUser.PasswordSalt = salt;
             mappedUser.PasswordHash = passwordHash;
 
-            // user = await _usersRepository.Add(mappedUser);
+            user = await _usersRepository.Add(mappedUser);
             return mappedUser;
         }
 

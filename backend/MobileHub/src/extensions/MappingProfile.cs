@@ -16,6 +16,7 @@ namespace MobileHub.src.extensions
         {
             CreateMap<CreateUserDto, User>();
             CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }
