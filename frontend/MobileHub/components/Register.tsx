@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Image,
-  ScrollView,
-} from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { StyleSheet, Image, ScrollView } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 const img_Size = 100;
@@ -30,30 +25,22 @@ const style = StyleSheet.create({
   },
 });
 
-export default function LogIn() {
+export default function Register() {
+  const [rut, setRut] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [birthYear, setBirthYear] = useState("")
   const [emailError, setEmailError] = useState(true);
-  const [passwordError, setPasswordError] = useState(true);
-  const [logInError, setLogInError] = useState(false);
+  const [rutError, setRutError] = useState(true);
 
   const [btnDisable, setBtnDisable] = useState(true);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  /**
-   * Maneja el clic en el botón para mostrar la contraseña
-   */
-  function handleShowPassword() {
-    setShowPassword((prev) => !prev);
-  }
 
   function handleEmailError(text: string) {
     setEmailError(false);
   }
 
-  function handlePasswordError(text: string) {
-    setPasswordError(false);
+  function handleRutError(text: string) {
+    setRutError(false);
   }
 
   function handleFieldChange(
@@ -97,12 +84,12 @@ export default function LogIn() {
    * Efecto para habilitar o deshabilitar el botón de inicio de sesión
    */
   useEffect(() => {
-    if (emailError || passwordError) {
+    if (emailError || rutError) {
       setBtnDisable(true);
     } else {
       setBtnDisable(false);
     }
-  }, [emailError, passwordError]);
+  }, [emailError, rutError]);
 
   /**
    * Inicia sesión con el nombre de usuario y la contraseña proporcionados
@@ -134,21 +121,43 @@ export default function LogIn() {
         />
         <TextInput
           style={[style.widthFull, style.input]}
+          label="Rut"
+          mode="outlined"
+          value={rut}
+          outlineColor="#fcaf43"
+          onChangeText={(text) =>
+            handleFieldChange(text, setRut, handleEmailError)
+          }
+        />
+        <TextInput
+          style={[style.widthFull, style.input]}
           label="Email"
           mode="outlined"
           value={email}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setEmail, handleEmailError)}
+          onChangeText={(text) =>
+            handleFieldChange(text, setEmail, handleEmailError)
+          }
+        />
+        <TextInput
+          style={[style.widthFull, style.input]}
+          label="Nombre"
+          mode="outlined"
+          value={fullname}
+          outlineColor="#fcaf43"
+          onChangeText={(text) =>
+            handleFieldChange(text, setFullname, null)
+          }
         />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Password"
           mode="outlined"
-          value={password}
-          secureTextEntry={!showPassword}
+          value={birthYear}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setPassword, handlePasswordError)}
-          right={<TextInput.Icon icon="eye" onPress={handleShowPassword} />}
+          onChangeText={(text) =>
+            handleFieldChange(text, setBirthYear, null)
+          }
         />
         <Button
           style={style.widthFull}
@@ -156,7 +165,7 @@ export default function LogIn() {
           disabled={btnDisable}
           // onPress={() => {}}
         >
-          Iniciar Sesión
+          Registrar
         </Button>
       </SafeAreaView>
     </ScrollView>
