@@ -1,16 +1,15 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import Cookies from "js-cookie";
 
-axios.defaults.baseURL = "http://localhost:5108/api";
+axios.defaults.baseURL = "http://192.168.0.30:5017";
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-axios.interceptors.request.use((config: any) => {
-  const token = Cookies.get("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+// axios.interceptors.request.use((config: any) => {
+//   const token = Cookies.get("token");
+//   if (token) config.headers.Authorization = `Bearer ${token}`;
+//   return config;
+// });
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),

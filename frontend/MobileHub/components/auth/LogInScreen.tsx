@@ -9,10 +9,9 @@ import {
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
 import { Link } from "expo-router";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
-const img_Size = 300;
+const img_Size = 150;
 
 const compStyle = StyleSheet.create({
   img: {
