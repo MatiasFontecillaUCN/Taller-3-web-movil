@@ -10,12 +10,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
-const img_Size = 100;
+const img_Size = 150;
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingBottom: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
     alignItems: "center",
     gap: 20,
   },
