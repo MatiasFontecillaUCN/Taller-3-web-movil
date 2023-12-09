@@ -12,10 +12,9 @@ const compStyle = StyleSheet.create({
   },
 });
 
-export default function HomeScreen() {
+export default function InitialScreen() {
   return (
     <SafeAreaView style={style.container}>
-      <Text variant="displayMedium">MobileHub</Text>
       <Image
         style={compStyle.img}
         source={MobileHubLogo}

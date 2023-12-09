@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { Link } from "expo-router";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
-const img_Size = 150;
+const img_Size = 300;
 
 const compStyle = StyleSheet.create({
   img: {

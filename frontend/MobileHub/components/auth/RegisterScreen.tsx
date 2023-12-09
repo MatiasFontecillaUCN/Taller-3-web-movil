@@ -153,7 +153,7 @@ export default function RegisterScreen() {
           disabled={btnDisable}
           // onPress={() => {}}
         >
-          Registrar
+          Crear cuenta
         </Button>
       </SafeAreaView>
     </ScrollView>
