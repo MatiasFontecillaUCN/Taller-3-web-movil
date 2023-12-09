@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobileHub.src.dto.users
 {
-    public class CreateUserDto
+    public class RegisterUserDto
     {
         /// <summary>
         /// Identificación del usuario.

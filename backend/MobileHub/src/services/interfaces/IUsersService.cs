@@ -16,7 +16,7 @@ namespace MobileHub.src.services.interfaces
         /// <summary>
         /// Crea un nuevo cliente.
         /// </summary>
-        Task<User> RegisterUser(CreateUserDto createUserDto);
+        Task<User> RegisterUser(RegisterUserDto registerUserDto);
 
         /// <summary>
         /// Actualiza un usuario existente.

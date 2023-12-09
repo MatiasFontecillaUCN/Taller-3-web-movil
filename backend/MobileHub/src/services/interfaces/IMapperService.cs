@@ -14,8 +14,9 @@ namespace MobileHub.src.services.interfaces
         List<UserDto> MapUsers(List<User> users);
 
         /// <summary>
-        /// Mapea un CreateClientDto a un User.
-        /// </summary>
-        User CreateUserDtoToUser(CreateUserDto createUserDto);
+        /// Mapea un RegisterUserDto a un User.
+        /// </summary>        
+        User RegisterUserDtoRoUser(RegisterUserDto registerUserDto);
+
     }
 }

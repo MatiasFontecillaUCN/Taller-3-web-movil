@@ -35,21 +35,21 @@ namespace MobileHub.src.services
         /// <summary>
         /// Crea un nuevo usuario.
         /// </summary>
-        public async Task<User> RegisterUser(CreateUserDto createUserDto)
+        public async Task<User> RegisterUser(RegisterUserDto registerUserDto)
         {
-            var mappedUser = _mapperService.CreateUserDtoToUser(createUserDto);
+            var mappedUser = _mapperService.RegisterUserDtoRoUser(registerUserDto);
             // if (!_validateRutHelper.ValidateRut(mappedUser.Id))
             // {
             //     throw new BadHttpRequestException("Formato de rut no valido");
             // }
-            var user = await _usersRepository.GetById(createUserDto.Id);
+            var user = await _usersRepository.GetById(registerUserDto.Id);
             if (user != null)
             {
                 throw new BadHttpRequestException("Ese usuario ya existe");
             }
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(mappedUser.Id.Replace(",", "").Replace("-", ""), salt);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(mappedUser.Id.Replace(",", "").Replace("-", "").Replace(".", ""), salt);
             mappedUser.PasswordSalt = salt;
             mappedUser.PasswordHash = passwordHash;
 

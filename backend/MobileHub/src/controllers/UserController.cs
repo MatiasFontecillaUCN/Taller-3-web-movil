@@ -41,9 +41,9 @@ namespace MobileHub.src.controllers
         /// <param name="createClientDto">El DTO con los datos del usuario a crear.</param>
         /// <returns>El usuario creado.</returns>
         [HttpPost("create")]
-        public async Task<ActionResult<User>> Create(CreateUserDto createUserDto)
+        public async Task<ActionResult<User>> Create(RegisterUserDto registerUserDto)
         {
-            var created = await _userService.RegisterUser(createUserDto);
+            var created = await _userService.RegisterUser(registerUserDto);
             return created;
         }
 

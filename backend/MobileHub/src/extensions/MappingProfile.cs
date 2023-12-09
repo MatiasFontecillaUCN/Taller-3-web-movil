@@ -14,7 +14,7 @@ namespace MobileHub.src.extensions
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<CreateUserDto, User>();
+            CreateMap<RegisterUserDto, User>();
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();
         }

@@ -36,9 +36,9 @@ namespace MobileHub.src.services
         /// <summary>
         /// Mapea un CreateClientDto a un User.
         /// </summary>
-        public User CreateUserDtoToUser(CreateUserDto createUserDto)
+        public User RegisterUserDtoRoUser(RegisterUserDto registerUserDto)
         {
-            var mappedUser = _mapper.Map<User>(createUserDto);
+            var mappedUser = _mapper.Map<User>(registerUserDto);
             return mappedUser;
         }
 
