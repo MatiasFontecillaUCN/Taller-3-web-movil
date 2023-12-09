@@ -134,7 +134,8 @@ export default function LogIn() {
         <Image style={style.img} source={MobileHubLogo} />
         <TextInput
           style={[style.widthFull, style.input]}
-          label="Email"
+          label="Correo Electronico"
+          placeholder="Tu correo electronico"
           mode="outlined"
           value={email}
           outlineColor="#fcaf43"
@@ -144,7 +145,9 @@ export default function LogIn() {
         />
         <TextInput
           style={[style.widthFull, style.input]}
-          label="Password"
+          label="Contraseña"
+          placeholder={showPassword ? "Tu contraseña":"********"}
+          placeholderTextColor={"#B2B2B2"}
           mode="outlined"
           value={password}
           secureTextEntry={!showPassword}
@@ -152,7 +155,7 @@ export default function LogIn() {
           onChangeText={(text) =>
             handleFieldChange(text, setPassword, handlePasswordError)
           }
-          right={<TextInput.Icon icon="eye" onPress={handleShowPassword} />}
+          right={<TextInput.Icon icon={showPassword ? "eye-off":"eye"} onPress={handleShowPassword} />}
         />
         <Button
           style={style.widthFull}
@@ -160,7 +163,7 @@ export default function LogIn() {
           disabled={btnDisable}
           // onPress={() => {}}
         >
-          Iniciar Sesión
+          Ingresar
         </Button>
       </SafeAreaView>
     </ScrollView>
