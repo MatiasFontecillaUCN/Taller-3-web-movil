@@ -3,12 +3,13 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  ImageSourcePropType,
 } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-
+const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 const img_Size = 100;
 
 const style = StyleSheet.create({
@@ -128,17 +129,16 @@ export default function LogIn() {
       automaticallyAdjustKeyboardInsets={true}
     >
       <SafeAreaView style={style.container}>
-        <Image
-          style={style.img}
-          source={require("../assets/images/MobileHub.png")}
-        />
+        <Image style={style.img} source={MobileHubLogo} />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Email"
           mode="outlined"
           value={email}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setEmail, handleEmailError)}
+          onChangeText={(text) =>
+            handleFieldChange(text, setEmail, handleEmailError)
+          }
         />
         <TextInput
           style={[style.widthFull, style.input]}
@@ -147,7 +147,9 @@ export default function LogIn() {
           value={password}
           secureTextEntry={!showPassword}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setPassword, handlePasswordError)}
+          onChangeText={(text) =>
+            handleFieldChange(text, setPassword, handlePasswordError)
+          }
           right={<TextInput.Icon icon="eye" onPress={handleShowPassword} />}
         />
         <Button

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  ScrollView,
+  ImageSourcePropType,
+} from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Cookies from "js-cookie";
+const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 
 const img_Size = 100;
 
@@ -25,11 +31,11 @@ const style = StyleSheet.create({
   },
 });
 
-export default function Register() {
+export default function RegisterScreen() {
   const [rut, setRut] = useState("");
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
-  const [birthYear, setBirthYear] = useState("")
+  const [birthYear, setBirthYear] = useState("");
   const [emailError, setEmailError] = useState(true);
   const [rutError, setRutError] = useState(true);
 
@@ -115,10 +121,7 @@ export default function Register() {
       automaticallyAdjustKeyboardInsets={true}
     >
       <SafeAreaView style={style.container}>
-        <Image
-          style={style.img}
-          source={require("../assets/images/MobileHub.png")}
-        />
+        <Image style={style.img} source={MobileHubLogo} />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Rut"
@@ -145,9 +148,7 @@ export default function Register() {
           mode="outlined"
           value={fullname}
           outlineColor="#fcaf43"
-          onChangeText={(text) =>
-            handleFieldChange(text, setFullname, null)
-          }
+          onChangeText={(text) => handleFieldChange(text, setFullname, null)}
         />
         <TextInput
           style={[style.widthFull, style.input]}
@@ -155,9 +156,7 @@ export default function Register() {
           mode="outlined"
           value={birthYear}
           outlineColor="#fcaf43"
-          onChangeText={(text) =>
-            handleFieldChange(text, setBirthYear, null)
-          }
+          onChangeText={(text) => handleFieldChange(text, setBirthYear, null)}
         />
         <Button
           style={style.widthFull}
