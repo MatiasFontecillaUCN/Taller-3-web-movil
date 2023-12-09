@@ -1,3 +1,4 @@
+import style from "../../assets/styles";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -9,28 +10,15 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { Link } from "expo-router";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 const img_Size = 150;
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: 20,
-    paddingRight: 20,
-    paddingLeft: 20,
-    alignItems: "center",
-    gap: 20,
-  },
-  widthFull: {
-    width: "100%",
-  },
+const compStyle = StyleSheet.create({
   img: {
     width: img_Size,
     height: img_Size * 1.17,
-  },
-  input: {
-    borderRadius: 5,
-  },
+  }
 });
 
 export default function LogIn() {
@@ -131,7 +119,7 @@ export default function LogIn() {
       automaticallyAdjustKeyboardInsets={true}
     >
       <SafeAreaView style={style.container}>
-        <Image style={style.img} source={MobileHubLogo} />
+        <Image style={compStyle.img} source={MobileHubLogo} />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Correo Electronico"
@@ -146,7 +134,7 @@ export default function LogIn() {
         <TextInput
           style={[style.widthFull, style.input]}
           label="Contraseña"
-          placeholder={showPassword ? "Tu contraseña":"********"}
+          placeholder={showPassword ? "Tu contraseña" : "********"}
           placeholderTextColor={"#B2B2B2"}
           mode="outlined"
           value={password}
@@ -155,16 +143,23 @@ export default function LogIn() {
           onChangeText={(text) =>
             handleFieldChange(text, setPassword, handlePasswordError)
           }
-          right={<TextInput.Icon icon={showPassword ? "eye-off":"eye"} onPress={handleShowPassword} />}
+          right={
+            <TextInput.Icon
+              icon={showPassword ? "eye-off" : "eye"}
+              onPress={handleShowPassword}
+            />
+          }
         />
-        <Button
-          style={style.widthFull}
-          mode="contained"
-          disabled={btnDisable}
-          // onPress={() => {}}
-        >
-          Ingresar
-        </Button>
+        <Link href='/home/' asChild replace={true}>
+          <Button
+            style={style.widthFull}
+            mode="contained"
+            disabled={btnDisable}
+            // onPress={() => {}}
+          >
+            Ingresar
+          </Button>
+        </Link>
       </SafeAreaView>
     </ScrollView>
   );

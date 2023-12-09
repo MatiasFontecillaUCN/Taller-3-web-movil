@@ -1,3 +1,4 @@
+import style from "../../assets/styles";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -12,25 +13,11 @@ const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHu
 
 const img_Size = 150;
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: 20,
-    paddingRight: 20,
-    paddingLeft: 20,
-    alignItems: "center",
-    gap: 20,
-  },
-  widthFull: {
-    width: "100%",
-  },
+const compStyle = StyleSheet.create({
   img: {
     width: img_Size,
     height: img_Size * 1.17,
-  },
-  input: {
-    borderRadius: 5,
-  },
+  }
 });
 
 export default function RegisterScreen() {
@@ -123,7 +110,7 @@ export default function RegisterScreen() {
       automaticallyAdjustKeyboardInsets={true}
     >
       <SafeAreaView style={style.container}>
-        <Image style={style.img} source={MobileHubLogo} />
+        <Image style={compStyle.img} source={MobileHubLogo} />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Rut"
