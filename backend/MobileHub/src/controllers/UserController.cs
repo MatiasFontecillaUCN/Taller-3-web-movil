@@ -40,7 +40,7 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <param name="createClientDto">El DTO con los datos del usuario a crear.</param>
         /// <returns>El usuario creado.</returns>
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<ActionResult<User>> Create(RegisterUserDto registerUserDto)
         {
             var created = await _userService.RegisterUser(registerUserDto);
@@ -52,7 +52,7 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <param name="status">El estado de los usuarios a obtener.</param>
         /// <returns>Una lista de usuarios.</returns>
-        [HttpGet("read")]
+        [HttpGet]
         public async Task<List<UserDto>> GetAllUsers()
         {
             var users = await _userService.GetAll();
@@ -65,7 +65,7 @@ namespace MobileHub.src.controllers
         /// <param name="updateClientDto">El DTO con los datos del usuario a actualizar.</param>
         /// <param name="id">El ID del usuario a actualizar.</param>
         /// <returns>El usuario actualizado.</returns>
-        [HttpPut("update/{id}")]
+        [HttpPut("/{id}")]
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
             var user = await _userService.UpdateUser(updateUserDto, id);
@@ -77,11 +77,17 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <param name="id">El ID del usuario a eliminar.</param>
         /// <returns>El usuario eliminado.</returns>
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("/{id}")]
         public async Task<User?> DeleteUser(string id)
         {
             var user = await _userService.DeleteUser(id);
             return user;
+        }
+
+        [HttpPatch("/update-password/{id}")]
+        public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){
+            var succes = await _userService.UpdatePassword(updatePasswordDto, id);
+            return succes;
         }
         
     }
