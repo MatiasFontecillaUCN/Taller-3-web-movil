@@ -53,7 +53,7 @@ namespace MobileHub.src.services
 
         private async Task<int> GetAllCommitsByRepository(GitHubClient client, string repoName)
         {
-            var commits = await client.Repository.Commit.GetAll("Dizkm8", repoName);
+            var commits = await client.Repository.Commit.GetAll(GitHubUser, repoName);
             if (commits is null) return 0;
             return commits.Count;
 
