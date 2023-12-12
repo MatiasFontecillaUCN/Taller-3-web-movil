@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using MobileHub.src.dataAnnotations;
 
 namespace MobileHub.src.dto.users
 {
@@ -9,6 +10,7 @@ namespace MobileHub.src.dto.users
         /// </summary>
         [EmailAddress]
         [Required]
+        [UCNEmailAddressAtributte(errorMessage:"Correo invalido")]
         public string Email { get; set; } = string.Empty;
 
         /// <summary>

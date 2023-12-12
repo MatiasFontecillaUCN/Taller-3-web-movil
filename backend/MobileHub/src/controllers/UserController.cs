@@ -11,7 +11,7 @@ using MobileHub.src.services.interfaces;
 namespace MobileHub.src.controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         /// <summary>

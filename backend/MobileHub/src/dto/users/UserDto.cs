@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using MobileHub.src.dataAnnotations;
 
 namespace MobileHub.src.dto.users
 {
@@ -12,6 +13,7 @@ namespace MobileHub.src.dto.users
         /// Identificación del usuario.
         /// </summary>
         [Required]
+        [Rut(errorMessage:"Rut invalido")]
         public string Id { get; set; } = null!;
 
         /// <summary>
@@ -19,6 +21,7 @@ namespace MobileHub.src.dto.users
         /// </summary>
         [EmailAddress]
         [Required]
+        [UCNEmailAddressAtributte(errorMessage:"Correo invalido")]
         public string Email { get; set; } = string.Empty;
 
         /// <summary>

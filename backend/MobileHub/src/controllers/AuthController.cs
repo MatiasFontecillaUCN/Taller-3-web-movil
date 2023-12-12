@@ -10,7 +10,7 @@ using MobileHub.src.services.interfaces;
 namespace MobileHub.src.controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         /// <summary>
