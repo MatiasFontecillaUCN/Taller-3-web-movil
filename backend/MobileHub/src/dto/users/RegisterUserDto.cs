@@ -13,7 +13,7 @@ namespace MobileHub.src.dto.users
         public string Id
         {
             get { return id; }
-            set { id = value.Replace(".", ""); }
+            set { id = value.Replace(".", "").Replace(",",""); }
         }
 
         /// <summary>

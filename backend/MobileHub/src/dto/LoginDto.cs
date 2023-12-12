@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using MobileHub.src.dataAnnotations;
 
 namespace MobileHub.src.dto
 {
     public class LoginDto
     {
-        /// <summary>
-        /// Id requerida para iniciar sesión.
-        /// </summary>
+        private string id = string.Empty;
+
         [Required]
-        public string Id { get; set; } = string.Empty;
+        // [Rut(errorMessage: "Rut invalido")]
+        public string Id
+        {
+            get { return id; }
+            set { id = value.Replace(".", "").Replace(",",""); }
+        }
 
         /// <summary>
         /// Contraseña requerida para iniciar sesión.

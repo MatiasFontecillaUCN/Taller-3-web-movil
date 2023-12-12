@@ -14,7 +14,8 @@ namespace MobileHub.src.dto.users
         /// </summary>
         [Required]
         [Rut(errorMessage:"Rut invalido")]
-        public string Id { get; set; } = null!;
+        public string Id { get; set; } = string.Empty;
+
 
         /// <summary>
         /// Correo electrónico requerido del cliente. Debe ser una dirección de correo electrónico válida.
