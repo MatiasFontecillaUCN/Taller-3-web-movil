@@ -12,7 +12,7 @@ namespace MobileHub.src.controllers
     {
 
         private readonly DataContext _context;
-        
+
         private readonly IRepositoriesService _repositoriesService;
 
         public RepositoriesController(IRepositoriesService repositoriesService, DataContext context)
@@ -29,18 +29,11 @@ namespace MobileHub.src.controllers
         }
 
 
-        //     [HttpGet]
-        //     public async Task<ActionResult<List<GitHubCommit>>> Commits()
-        //     {
-        //         Env.Load();
-        //         var client = new GitHubClient(new ProductHeaderValue("MobileHub"));
-        //         var token = Env.GetString("GITHUB_ACCESS_TOKEN");
-        //         var tockenCred = new Credentials(token);
-        //         client.Credentials = tockenCred;
-
-        //         var commits = (await client.Repository.Commit.GetAll("Dizkm8","Hackathon")).ToList();
-        //         return commits;
-        //     }
-        // }
+        [HttpGet("/{repositoryName}")]
+        public async Task<ActionResult<List<GitHubCommit>>> GetCommits(string repositoryName)
+        {
+            var commits = await _repositoriesService.GetCommits(repositoryName);
+            return commits;
+        }
     }
 }
