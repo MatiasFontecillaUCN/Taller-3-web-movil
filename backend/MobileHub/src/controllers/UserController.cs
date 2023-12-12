@@ -65,7 +65,7 @@ namespace MobileHub.src.controllers
         /// <param name="updateClientDto">El DTO con los datos del usuario a actualizar.</param>
         /// <param name="id">El ID del usuario a actualizar.</param>
         /// <returns>El usuario actualizado.</returns>
-        [HttpPut("/{id}")]
+        [HttpPatch("/{id}")]
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
             var user = await _userService.UpdateUser(updateUserDto, id);

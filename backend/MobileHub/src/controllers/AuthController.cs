@@ -39,7 +39,7 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <param name="loginDto">El DTO con los datos de inicio de sesión, contiene id del usuario y contraseña.</param>
         /// <returns>Un JWT si las credenciales son válidas, de lo contrario retorna un BadRequest.</returns>
-        [HttpPost("login")]
+        [HttpPost]
         public async Task<ActionResult<string>> Login(LoginDto loginDto)
         {
 
