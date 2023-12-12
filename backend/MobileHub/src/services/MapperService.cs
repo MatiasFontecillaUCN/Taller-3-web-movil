@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MobileHub.src.dto.repositories;
 using MobileHub.src.dto.users;
-using MobileHub.src.models;
 using MobileHub.src.services.interfaces;
+using Octokit;
+using User = MobileHub.src.models.User;
 
 namespace MobileHub.src.services
 {
@@ -49,6 +51,21 @@ namespace MobileHub.src.services
         {
             var mappedUser = _mapper.Map<User>(userDto);
             return mappedUser;
+        }
+
+        public List<RepositoryDto> MapRepositories(List<Repository> repositories, int[] commitsResult){
+            var mappedRepositories = repositories.Select((r, index) =>
+            {
+                var entity = new RepositoryDto
+                {
+                    Name = r.Name,
+                    CreatedAt = r.CreatedAt,
+                    UpdatedAt = r.UpdatedAt,
+                    CommitsAmount = commitsResult[index]
+                };
+                return entity;
+            }).ToList();
+            return mappedRepositories;
         }
     }
 }

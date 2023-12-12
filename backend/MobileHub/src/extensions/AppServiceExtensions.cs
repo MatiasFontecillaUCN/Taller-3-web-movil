@@ -53,6 +53,7 @@ namespace MobileHub.src.extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IMapperService, MapperService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IRepositoriesService, RepositoriesService>();
         }
 
         /// <summary>

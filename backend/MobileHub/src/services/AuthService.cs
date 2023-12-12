@@ -18,12 +18,14 @@ namespace MobileHub.src.services
     {
         private readonly IUsersRepository _userRepository;
         private readonly IConfiguration _configuration;
-
+        private readonly string TokenSecret;
         /// <summary>
         /// Constructor para inyectar dependencias.
         /// </summary>
         public AuthService(IUsersRepository userRepository, IConfiguration configuration)
         {
+            Env.Load();
+            TokenSecret = Env.GetString("TOKEN");
             _userRepository = userRepository;
             _configuration = configuration;
         }
@@ -33,7 +35,6 @@ namespace MobileHub.src.services
         /// </summary>
         public async Task<string?> Login(LoginDto loginDto)
         {
-            Console.WriteLine("Login Service!");
             var user = await _userRepository.GetById(loginDto.Id);
             if (user is null) return null;
 
@@ -49,17 +50,14 @@ namespace MobileHub.src.services
         /// </summary>
         private string CreateToken(User user)
         {
-            Env.Load();
-            string tokenSecret = Env.GetString("TOKEN");
-
-            if (tokenSecret == null)
+            if (TokenSecret == null)
             {
                 throw new InvalidOperationException("TOKEN configuration value is not set.");
             }
             var claims = new List<Claim>{
             new ("rut", user.Id)};
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSecret));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenSecret));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(

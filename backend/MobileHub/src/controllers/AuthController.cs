@@ -42,7 +42,6 @@ namespace MobileHub.src.controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(LoginDto loginDto)
         {
-            Console.WriteLine("Login Controller!");
 
             var jwt = await _authService.Login(loginDto);
 

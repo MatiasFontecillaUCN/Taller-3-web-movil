@@ -1,5 +1,7 @@
+using MobileHub.src.dto.repositories;
 using MobileHub.src.dto.users;
-using MobileHub.src.models;
+using Octokit;
+using User = MobileHub.src.models.User;
 
 namespace MobileHub.src.services.interfaces
 {
@@ -17,6 +19,8 @@ namespace MobileHub.src.services.interfaces
         /// Mapea un RegisterUserDto a un User.
         /// </summary>        
         User RegisterUserDtoRoUser(RegisterUserDto registerUserDto);
+
+        List<RepositoryDto> MapRepositories(List<Repository> repositories, int[] commitsResult);
 
     }
 }
