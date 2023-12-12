@@ -4,13 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import style from "../../assets/styles";
 import agent from "../../app/api/agent";
 import { useEffect, useState } from "react";
+import LoadingScreen from "../LoadingScreen";
 interface Repository {
   name: string;
   createdAt: string;
   updatedAt: string;
   commitsAmount: number;
-
-  // other properties...
 }
 const compStyle = StyleSheet.create({
   loadIcon: {
@@ -35,9 +34,7 @@ export default function HomeScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={compStyle.loadScreen}>
-        <ActivityIndicator animating={true} size={"large"}/>
-      </SafeAreaView>
+      <LoadingScreen/>
     );
   }
 
