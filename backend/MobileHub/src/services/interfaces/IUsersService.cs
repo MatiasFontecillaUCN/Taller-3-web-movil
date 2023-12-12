@@ -28,5 +28,7 @@ namespace MobileHub.src.services.interfaces
         /// </summary>
         Task<User?> DeleteUser(string id);
 
+        Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id);
+
     }
 }
