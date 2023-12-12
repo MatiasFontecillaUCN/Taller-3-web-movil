@@ -5,6 +5,7 @@ namespace MobileHub.src.dto.users
 {
     public class UpdateUserDto
     {
+        private int birthYear;
         /// <summary>
         /// Correo electrónico requerido del cliente. Debe ser una dirección de correo electrónico válida.
         /// </summary>
@@ -23,8 +24,16 @@ namespace MobileHub.src.dto.users
         /// Puntos del usuario.
         /// </summary>
         [Required]
-        [Range(1900, 2023)]
-        public int BirthYear { get; set; }
+        public int BirthYear
+        {
+            get { return birthYear; }
+            set
+            {
+                if (value > DateTime.Now.Year || value < 1900)
+                    throw new ArgumentOutOfRangeException("Año de nacimiento invalido");
+                birthYear = value;
+            }
+        }
 
     }
 }
