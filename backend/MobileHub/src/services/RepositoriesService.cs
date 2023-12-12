@@ -28,7 +28,14 @@ namespace MobileHub.src.services
             var repositories = (await client.Repository.GetAllForUser(GitHubUser)).ToList();
             if (repositories is null) throw new BadHttpRequestException("Usuario no encontrado");
             repositories = repositories.OrderByDescending(r => r.UpdatedAt).ToList();
-            var getCommitsTask = repositories.Select(r => GetAllCommitsByRepository(client, r.Name));
+            var getCommitsTask = repositories.Select(r =>
+            {
+                if (r.Size == 0)
+                {
+                    return GetAllCommitsByRepository(client, "");
+                }
+                return GetAllCommitsByRepository(client, r.Name);
+            });
             var commitsResult = await Task.WhenAll(getCommitsTask);
             var mappedRepositories = _mapperService.MapRepositories(repositories, commitsResult);
             return mappedRepositories;
@@ -41,20 +48,22 @@ namespace MobileHub.src.services
             client.Credentials = tockenCred;
             try
             {
-                var commits = (await client.Repository.Commit.GetAll("Dizkm8", repositoryName)).ToList();
+                var commits = (await client.Repository.Commit.GetAll(GitHubUser, repositoryName)).ToList();
                 return commits;
             }
             catch
             {
-
                 throw new BadHttpRequestException("Repositorio no encontrado");
             }
         }
 
         private async Task<int> GetAllCommitsByRepository(GitHubClient client, string repoName)
         {
+            if(repoName == "") return 0;
+
             var commits = await client.Repository.Commit.GetAll(GitHubUser, repoName);
             if (commits is null) return 0;
+
             return commits.Count;
 
         }
