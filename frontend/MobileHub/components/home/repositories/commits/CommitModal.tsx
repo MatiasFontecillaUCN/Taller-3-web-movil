@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Modal, PaperProvider, Portal, Text } from "react-native-paper";
 import agent from "../../../../app/api/agent";
 import LoadingScreen from "../../../LoadingScreen";
 import Index from "../../../../app/home/index";
 import Commit from "./Commits";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Commit {
   message: string;
@@ -15,12 +16,16 @@ interface Commit {
 }
 const style = StyleSheet.create({
   modal: {
-    flex: 1,
     marginTop: "20%",
     marginBottom: "20%",
     margin: "10%",
-    height: "80%",
-    backgroundColor: "white",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderRadius: 10, 
+    borderColor:"#fcaf43",
+    borderWidth:3,
   },
 });
 
@@ -45,7 +50,9 @@ export default function CommitModal({
           }}
           style={style.modal}
         >
-          <LoadingScreen />
+          <View>
+            <LoadingScreen />
+          </View>
         </Modal>
       </Portal>
     );
@@ -61,10 +68,11 @@ export default function CommitModal({
         style={style.modal}
       >
         <ScrollView>
-          {commits.map((commit, Index) => {
-            console.log(commit);
-            return <Commit commit={commit} key={Index} />;
-          })}
+          <View style={style.container}>
+            {commits.map((commit, Index) => {
+              return <Commit commit={commit} key={Index} />;
+            })}
+          </View>
         </ScrollView>
       </Modal>
     </Portal>
