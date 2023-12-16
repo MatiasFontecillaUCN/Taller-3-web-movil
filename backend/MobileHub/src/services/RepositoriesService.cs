@@ -41,7 +41,7 @@ namespace MobileHub.src.services
             return mappedRepositories;
         }
 
-        public async Task<List<GitHubCommit>> GetCommits(string repositoryName)
+        public async Task<List<CommitDto>> GetCommits(string repositoryName)
         {
             var client = new GitHubClient(new ProductHeaderValue("MobileHub"));
             var tockenCred = new Credentials(GitHubToken);
@@ -49,7 +49,8 @@ namespace MobileHub.src.services
             try
             {
                 var commits = (await client.Repository.Commit.GetAll(GitHubUser, repositoryName)).ToList();
-                return commits;
+                var mappedCommits = _mapperService.MapCommits(commits);
+                return mappedCommits;
             }
             catch
             {

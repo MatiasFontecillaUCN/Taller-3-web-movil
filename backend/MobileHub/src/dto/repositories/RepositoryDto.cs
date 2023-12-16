@@ -9,7 +9,7 @@ namespace MobileHub.src.dto.repositories
     public class RepositoryDto
     {
         [Required]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
         [Required]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
         [Required]

@@ -53,7 +53,8 @@ namespace MobileHub.src.services
             return mappedUser;
         }
 
-        public List<RepositoryDto> MapRepositories(List<Repository> repositories, int[] commitsResult){
+        public List<RepositoryDto> MapRepositories(List<Repository> repositories, int[] commitsResult)
+        {
             var mappedRepositories = repositories.Select((r, index) =>
             {
                 var entity = new RepositoryDto
@@ -66,6 +67,24 @@ namespace MobileHub.src.services
                 return entity;
             }).ToList();
             return mappedRepositories;
+        }
+
+        public List<CommitDto> MapCommits(List<GitHubCommit> commits)
+        {
+            var mappedCommits = commits.Select(c =>
+            {
+                var entity = new CommitDto
+                {
+                    Message = c.Commit.Message,
+                    CreatedAt = c.Commit.Author.Date,
+                    Author = c.Author.Login,
+                    AvatarUrl = c.Author.AvatarUrl
+                };
+                return entity;
+            }
+
+            ).ToList();
+            return mappedCommits;
         }
     }
 }

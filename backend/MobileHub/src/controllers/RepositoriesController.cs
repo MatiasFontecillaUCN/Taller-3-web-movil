@@ -30,7 +30,7 @@ namespace MobileHub.src.controllers
 
 
         [HttpGet("/{repositoryName}")]
-        public async Task<ActionResult<List<GitHubCommit>>> GetCommits(string repositoryName)
+        public async Task<ActionResult<List<CommitDto>>> GetCommits(string repositoryName)
         {
             var commits = await _repositoriesService.GetCommits(repositoryName);
             return commits;

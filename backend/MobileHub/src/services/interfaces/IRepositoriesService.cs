@@ -7,6 +7,6 @@ namespace MobileHub.src.services.interfaces
     {
         Task<List<RepositoryDto>> GetAll();
 
-        Task<List<GitHubCommit>> GetCommits(string repositoryName);
+        Task<List<CommitDto>> GetCommits(string repositoryName);
     }
 }

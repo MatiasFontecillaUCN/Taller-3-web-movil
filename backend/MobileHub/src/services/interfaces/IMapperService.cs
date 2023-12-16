@@ -22,5 +22,8 @@ namespace MobileHub.src.services.interfaces
 
         List<RepositoryDto> MapRepositories(List<Repository> repositories, int[] commitsResult);
 
+        List<CommitDto> MapCommits(List<GitHubCommit> commits);
+
+
     }
 }
