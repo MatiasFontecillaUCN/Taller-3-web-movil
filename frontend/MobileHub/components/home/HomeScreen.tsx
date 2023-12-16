@@ -1,10 +1,13 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { ActivityIndicator, Button, Card, Text } from "react-native-paper";
+import {
+  Text,
+} from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import style from "../../assets/styles";
 import agent from "../../app/api/agent";
 import { useEffect, useState } from "react";
 import LoadingScreen from "../LoadingScreen";
+import Repositorie from "./repositories/Repositorie";
 interface Repository {
   name: string;
   createdAt: string;
@@ -25,7 +28,6 @@ export default function HomeScreen() {
     setIsLoading(true);
     agent.Repositories.getAll()
       .then((response) => {
-        console.log(response);
         setRepositories(response);
       })
       .catch((error) => console.log(error))
@@ -33,9 +35,7 @@ export default function HomeScreen() {
   }, []);
 
   if (isLoading) {
-    return (
-      <LoadingScreen/>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -43,21 +43,7 @@ export default function HomeScreen() {
       <SafeAreaView style={style.container}>
         <Text variant="displaySmall">Repositorios</Text>
         {repositories.map((r: Repository) => {
-          return (
-            <Card style={style.widthFull} key={r.name}>
-              <Card.Title title={r.name} titleVariant="headlineSmall" />
-              <Card.Content>
-                <Text variant="bodyMedium">Creado el {r.createdAt}</Text>
-                <Text variant="bodyMedium">Actualizado el {r.updatedAt}</Text>
-                <Text variant="bodyMedium">{r.commitsAmount} Commits</Text>
-              </Card.Content>
-              <Card.Actions>
-                <Button mode="contained" onPress={() => console.log("pressed")}>
-                  Ver Más
-                </Button>
-              </Card.Actions>
-            </Card>
-          );
+          return <Repositorie repositorie={r} key={r.name} />;
         })}
       </SafeAreaView>
     </ScrollView>

@@ -61,7 +61,7 @@ app.UseAuthorization();
 
 app.UseCors(opt =>
 {
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://192.168.0.30:5017", Env.GetString("LOCAL_IP_PATH"));
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://192.168.0.30:5017", Env.GetString("LOCAL_IP_PATH"),"http://localhost:8081");
 });
 
 app.MapControllers();
