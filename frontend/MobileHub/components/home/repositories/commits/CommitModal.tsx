@@ -10,8 +10,8 @@ import Commit from "./Commits";
 interface Commit {
   message: string;
   author: string;
-  creted_at: string;
-  avatarURL: string;
+  createdAt: string;
+  avatarUrl: string;
 }
 const style = StyleSheet.create({
   modal: {
@@ -25,27 +25,16 @@ const style = StyleSheet.create({
 });
 
 export default function CommitModal({
-  repoName,
+  commits,
   hideModal,
   isModalVisible,
+  isLoading,
 }: {
-  repoName: string;
+  commits: Commit[];
   hideModal: VoidFunction;
   isModalVisible: boolean;
+  isLoading: boolean;
 }) {
-  const [commits, setCommits] = useState<Commit[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    agent.Repositories.getCommits(repoName)
-      .then((response) => {
-        setCommits(response);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
-  }, []);
-
   if (isLoading) {
     return (
       <Portal>
@@ -73,8 +62,8 @@ export default function CommitModal({
       >
         <ScrollView>
           {commits.map((commit, Index) => {
-            console.log(commit)
-            return <Commit commit={commit} key={Index}/>;
+            console.log(commit);
+            return <Commit commit={commit} key={Index} />;
           })}
         </ScrollView>
       </Modal>
