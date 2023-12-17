@@ -26,7 +26,7 @@ namespace MobileHub.src.services.interfaces
         /// <summary>
         /// Elimina un usuario existente.
         /// </summary>
-        Task<User?> DeleteUser(string id);
+        Task<UserDto?> GetUser(string id);
 
         Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id);
 

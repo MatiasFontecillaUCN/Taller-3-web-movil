@@ -68,13 +68,13 @@ namespace MobileHub.src.services
         /// <summary>
         /// Elimina un usuario existente.
         /// </summary>
-        public async Task<User?> DeleteUser(string id)
+        public async Task<UserDto?> GetUser(string id)
         {
             var user = await _usersRepository.GetById(id);
-            if (user == null) throw new BadHttpRequestException("Ese usuario ya existe");
+            if (user == null) throw new BadHttpRequestException("Ese usuario no existe");
+            var mappedUser = _mapperService.UserToUserDto(user);
 
-            var deletedUser = await _usersRepository.Delete(user);
-            return deletedUser;
+            return mappedUser;
         }
 
         public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){

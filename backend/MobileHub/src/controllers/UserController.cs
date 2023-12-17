@@ -61,7 +61,7 @@ namespace MobileHub.src.controllers
         /// <param name="updateClientDto">El DTO con los datos del usuario a actualizar.</param>
         /// <param name="id">El ID del usuario a actualizar.</param>
         /// <returns>El usuario actualizado.</returns>
-        [HttpPatch("/{id}")]
+        [HttpPatch("{id}")]
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
             var user = await _userService.UpdateUser(updateUserDto, id);
@@ -69,18 +69,18 @@ namespace MobileHub.src.controllers
         }
 
         /// <summary>
-        /// Método para eliminar un usuario.
+        /// Método para obtener un usuario.
         /// </summary>
-        /// <param name="id">El ID del usuario a eliminar.</param>
-        /// <returns>El usuario eliminado.</returns>
-        [HttpDelete("/{id}")]
-        public async Task<User?> DeleteUser(string id)
+        /// <param name="id">El ID del usuario a obtener.</param>
+        /// <returns>El usuario obtenido.</returns>
+        [HttpGet("{id}")]
+        public async Task<UserDto?> GetUser(string id)
         {
-            var user = await _userService.DeleteUser(id);
+            var user = await _userService.GetUser(id.Replace(".", "").Replace(",", ""));
             return user;
         }
 
-        [HttpPatch("/update-password/{id}")]
+        [HttpPatch("update-password/{id}")]
         public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){
             var succes = await _userService.UpdatePassword(updatePasswordDto, id);
             return succes;

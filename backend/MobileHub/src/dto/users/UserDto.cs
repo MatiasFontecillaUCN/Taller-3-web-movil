@@ -9,12 +9,15 @@ namespace MobileHub.src.dto.users
 {
     public class UserDto
     {
-        /// <summary>
-        /// Identificación del usuario.
-        /// </summary>
+        private string id = string.Empty;
+
         [Required]
-        [Rut(errorMessage:"Rut invalido")]
-        public string Id { get; set; } = string.Empty;
+        [Rut(errorMessage: "Rut invalido")]
+        public string Id
+        {
+            get { return id; }
+            set { id = value.Replace(".", "").Replace(",", ""); }
+        }
 
 
         /// <summary>
@@ -22,7 +25,7 @@ namespace MobileHub.src.dto.users
         /// </summary>
         [EmailAddress]
         [Required]
-        [UCNEmailAddressAtributte(errorMessage:"Correo invalido")]
+        [UCNEmailAddressAtributte(errorMessage: "Correo invalido")]
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
@@ -38,6 +41,6 @@ namespace MobileHub.src.dto.users
         [Range(1900, 2023)]
         public int BirthYear { get; set; }
 
-        
+
     }
 }
