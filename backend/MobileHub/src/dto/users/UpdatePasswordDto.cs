@@ -1,15 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MobileHub.src.dto.users
 {
+    /// <summary>
+    /// Clase para representar la actualización de la contraseña de un usuario en la capa de transferencia de datos.
+    /// </summary>
     public class UpdatePasswordDto
     {
+        /// <summary>
+        /// Nueva contraseña del usuario.
+        /// </summary>
         [Required]
         public string Password { get; set; } = string.Empty;
-
     }
 }

@@ -14,14 +14,21 @@ using MobileHub.src.services.interfaces;
 
 namespace MobileHub.src.services
 {
+    /// <summary>
+    /// Mapea una lista de GitHubCommit a una lista de CommitDto.
+    /// </summary>
+    /// <param name="commits">Lista de GitHubCommit a mapear.</param>
+    /// <returns>Lista de CommitDto.</returns>
     public class AuthService : IAuthService
     {
         private readonly IUsersRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly string TokenSecret;
         /// <summary>
-        /// Constructor para inyectar dependencias.
+        /// Mapea una lista de GitHubCommit a una lista de CommitDto.
         /// </summary>
+        /// <param name="commits">Lista de GitHubCommit a mapear.</param>
+        /// <returns>Lista de CommitDto.</returns>
         public AuthService(IUsersRepository userRepository, IConfiguration configuration)
         {
             Env.Load();
@@ -33,6 +40,8 @@ namespace MobileHub.src.services
         /// <summary>
         /// Inicia sesión con las credenciales proporcionadas.
         /// </summary>
+        /// <param name="loginDto">Datos de inicio de sesión del usuario.</param>
+        /// <returns>Token de autenticación si las credenciales son válidas, null en caso contrario.</returns>
         public async Task<string?> Login(LoginDto loginDto)
         {
             var user = await _userRepository.GetById(loginDto.Id);
@@ -46,8 +55,10 @@ namespace MobileHub.src.services
         }
 
         /// <summary>
-        /// Crea un token JWT para el administrador.
+        /// Crea un token JWT para el usuario.
         /// </summary>
+        /// <param name="user">Usuario para el que se va a crear el token.</param>
+        /// <returns>Token JWT.</returns>
         private string CreateToken(User user)
         {
             if (TokenSecret == null)

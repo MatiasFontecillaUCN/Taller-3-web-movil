@@ -5,12 +5,24 @@ using Octokit;
 
 namespace MobileHub.src.services
 {
+    // <summary>
+    /// Actualiza la contraseña de un usuario.
+    /// </summary>
+    /// <param name="updatePasswordDto">Datos de la nueva contraseña.</param>
+    /// <param name="id">ID del usuario a actualizar.</param>
+    /// <returns>Verdadero si la contraseña se actualizó correctamente, falso en caso contrario.</returns>
     public class RepositoriesService : IRepositoriesService
     {
         private readonly IMapperService _mapperService;
         private readonly string GitHubToken;
         private readonly string GitHubUser;
 
+        // <summary>
+        /// Actualiza la contraseña de un usuario.
+        /// </summary>
+        /// <param name="updatePasswordDto">Datos de la nueva contraseña.</param>
+        /// <param name="id">ID del usuario a actualizar.</param>
+        /// <returns>Verdadero si la contraseña se actualizó correctamente, falso en caso contrario.</returns>
         public RepositoriesService(IMapperService mapperService)
         {
 
@@ -20,6 +32,10 @@ namespace MobileHub.src.services
             _mapperService = mapperService;
         }
 
+        /// <summary>
+        /// Obtiene todos los repositorios.
+        /// </summary>
+        /// <returns>Lista de repositorios.</returns>
         public async Task<List<RepositoryDto>> GetAll()
         {
             var client = new GitHubClient(new ProductHeaderValue("MobileHub"));
@@ -41,6 +57,11 @@ namespace MobileHub.src.services
             return mappedRepositories;
         }
 
+        /// <summary>
+        /// Obtiene todos los commits de un repositorio.
+        /// </summary>
+        /// <param name="repositoryName">Nombre del repositorio.</param>
+        /// <returns>Lista de commits.</returns>
         public async Task<List<CommitDto>> GetCommits(string repositoryName)
         {
             var client = new GitHubClient(new ProductHeaderValue("MobileHub"));
@@ -58,9 +79,15 @@ namespace MobileHub.src.services
             }
         }
 
+        /// <summary>
+        /// Obtiene todos los commits de un repositorio por su nombre.
+        /// </summary>
+        /// <param name="client">Cliente de GitHub.</param>
+        /// <param name="repoName">Nombre del repositorio.</param>
+        /// <returns>Número de commits.</returns>
         private async Task<int> GetAllCommitsByRepository(GitHubClient client, string repoName)
         {
-            if(repoName == "") return 0;
+            if (repoName == "") return 0;
 
             var commits = await client.Repository.Commit.GetAll(GitHubUser, repoName);
             if (commits is null) return 0;

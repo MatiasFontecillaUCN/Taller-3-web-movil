@@ -25,7 +25,7 @@ namespace MobileHub.src.repositories
         }
 
         /// <summary>
-        /// Obtiene todos los usuarios o solo los activos dependiendo del parámetro de estado.
+        /// Obtiene todos los usuarios.
         /// </summary>
         public async Task<List<User>> GetAll()
         {

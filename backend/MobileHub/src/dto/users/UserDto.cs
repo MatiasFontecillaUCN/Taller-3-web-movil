@@ -1,27 +1,33 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using MobileHub.src.dataAnnotations;
 
 namespace MobileHub.src.dto.users
 {
+    /// <summary>
+    /// Clase para representar a un usuario en la capa de transferencia de datos.
+    /// </summary>
     public class UserDto
     {
         private string id = string.Empty;
 
+        /// <summary>
+        /// Identificador del usuario. Se eliminan los puntos y las comas.
+        /// </summary>
         [Required]
         [Rut(errorMessage: "Rut invalido")]
         public string Id
         {
             get { return id; }
+
+            /// <summary>
+            /// Establece el ID de un usuario. Elimina cualquier punto o coma de la cadena de entrada.
+            /// </summary>
+            /// <value>El ID del usuario sin puntos ni comas.</value>
             set { id = value.Replace(".", "").Replace(",", ""); }
         }
 
-
         /// <summary>
-        /// Correo electrónico requerido del cliente. Debe ser una dirección de correo electrónico válida.
+        /// Correo electrónico del usuario.
         /// </summary>
         [EmailAddress]
         [Required]
@@ -29,18 +35,16 @@ namespace MobileHub.src.dto.users
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// Nombre del usuario.
+        /// Nombre completo del usuario.
         /// </summary>
         [Required]
         public string Fullname { get; set; } = null!;
 
         /// <summary>
-        /// Puntos del usuario.
+        /// Año de nacimiento del usuario.
         /// </summary>
         [Required]
         [Range(1900, 2023)]
         public int BirthYear { get; set; }
-
-
     }
 }

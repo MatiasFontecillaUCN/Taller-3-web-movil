@@ -6,25 +6,30 @@ using MobileHub.src.services.interfaces;
 namespace MobileHub.src.services
 {
     /// <summary>
-    /// Servicio para gestionar usuarios.
+    /// Servicio para gestionar las operaciones de los usuarios.
     /// </summary>
     public class UsersService : IUsersService
     {
         private readonly IUsersRepository _usersRepository;
         private readonly IMapperService _mapperService;
 
+
         /// <summary>
-        /// Constructor para inyectar dependencias.
+        /// Constructor del servicio de usuarios.
         /// </summary>
+        /// <param name="usersRepository">Repositorio de usuarios.</param>
+        /// <param name="mapperService">Servicio de mapeo.</param>
         public UsersService(IUsersRepository usersRepository, IMapperService mapperService)
         {
             _usersRepository = usersRepository;
             _mapperService = mapperService;
         }
 
+
         /// <summary>
-        /// Obtiene todos los usuarios con un estado específico.
+        /// Obtiene todos los usuarios.
         /// </summary>
+        /// <returns>Lista de usuarios.</returns>
         public async Task<List<UserDto>> GetAll()
         {
             var users = await _usersRepository.GetAll();
@@ -32,9 +37,12 @@ namespace MobileHub.src.services
             return mappedUsers;
         }
 
+
         /// <summary>
-        /// Crea un nuevo usuario.
+        /// Registra un nuevo usuario.
         /// </summary>
+        /// <param name="registerUserDto">Datos del usuario a registrar.</param>
+        /// <returns>Usuario registrado.</returns>
         public async Task<User> RegisterUser(RegisterUserDto registerUserDto)
         {
             var mappedUser = _mapperService.RegisterUserDtoRoUser(registerUserDto);
@@ -51,12 +59,15 @@ namespace MobileHub.src.services
         }
 
         /// <summary>
-        /// Actualiza un usuario existente.
+        /// Actualiza los datos de un usuario.
         /// </summary>
+        /// <param name="updateUserDto">Datos del usuario a actualizar.</param>
+        /// <param name="id">ID del usuario a actualizar.</param>
+        /// <returns>Usuario actualizado.</returns>
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
             var user = await _usersRepository.GetById(id);
-            if (user == null) throw new BadHttpRequestException("Usuario no encontrado"); 
+            if (user == null) throw new BadHttpRequestException("Usuario no encontrado");
             user.Email = updateUserDto.Email;
             user.Fullname = updateUserDto.Fullname;
             user.BirthYear = updateUserDto.BirthYear;
@@ -66,8 +77,10 @@ namespace MobileHub.src.services
         }
 
         /// <summary>
-        /// Elimina un usuario existente.
+        /// Obtiene un usuario por su ID.
         /// </summary>
+        /// <param name="id">ID del usuario a obtener.</param>
+        /// <returns>Usuario obtenido.</returns>
         public async Task<UserDto?> GetUser(string id)
         {
             var user = await _usersRepository.GetById(id);
@@ -77,9 +90,16 @@ namespace MobileHub.src.services
             return mappedUser;
         }
 
-        public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){
+        // <summary>
+        /// Actualiza la contraseña de un usuario.
+        /// </summary>
+        /// <param name="updatePasswordDto">Datos de la nueva contraseña.</param>
+        /// <param name="id">ID del usuario a actualizar.</param>
+        /// <returns>Verdadero si la contraseña se actualizó correctamente, falso en caso contrario.</returns>
+        public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto, string id)
+        {
             var user = await _usersRepository.GetById(id);
-            if(user is null) throw new BadHttpRequestException("Usuario no encontrado");
+            if (user is null) throw new BadHttpRequestException("Usuario no encontrado");
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(updatePasswordDto.Password, salt);

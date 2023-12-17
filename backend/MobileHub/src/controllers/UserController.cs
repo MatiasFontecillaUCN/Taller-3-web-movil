@@ -44,9 +44,8 @@ namespace MobileHub.src.controllers
         }
 
         /// <summary>
-        /// Método para obtener todos los usuarios con un estado específico.
+        /// Método para obtener todos los usuarios.
         /// </summary>
-        /// <param name="status">El estado de los usuarios a obtener.</param>
         /// <returns>Una lista de usuarios.</returns>
         [HttpGet]
         public async Task<List<UserDto>> GetAllUsers()
@@ -64,7 +63,7 @@ namespace MobileHub.src.controllers
         [HttpPatch("{id}")]
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
-            var user = await _userService.UpdateUser(updateUserDto, id);
+            var user = await _userService.UpdateUser(updateUserDto, id.Replace(".", "").Replace(",", ""));
             return user;
         }
 
