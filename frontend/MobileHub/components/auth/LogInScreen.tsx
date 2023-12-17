@@ -5,6 +5,8 @@ import {
   Image,
   ScrollView,
   ImageSourcePropType,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -28,6 +30,7 @@ async function getValueFor(key: any) {
 }
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 const img_Size = 150;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const compStyle = StyleSheet.create({
   img: {
@@ -40,8 +43,6 @@ export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(true);
-  const [passwordError, setPasswordError] = useState(true);
-  const [logInError, setLogInError] = useState(false);
 
   const [btnDisable, setBtnDisable] = useState(true);
 
@@ -50,16 +51,14 @@ export default function LogIn() {
   const router = useRouter();
 
   function handleEmailError(text: string) {
-    setEmailError(false);
-  }
-
-  function handlePasswordError(text: string) {
-    setPasswordError(false);
+    let valid = false;
+    valid = !emailRegex.test(text);
+    console.log(text + " ES " + valid);
+    setEmailError(valid);
   }
 
   function handlePasswordChange(text: string) {
     setPassword(text);
-    handlePasswordError(text);
   }
   function handleFieldChange(
     text: string,
@@ -72,6 +71,16 @@ export default function LogIn() {
     }
   }
 
+  function handlePressDisabledButton() {
+    if (btnDisable) {
+      Alert.alert("", "Debe ingresar un correo electronico valido", [
+        {
+          text: "Ok",
+        },
+      ]);
+    }
+  }
+
   function handleLogin(email: string, password: string) {
     agent.Auth.auth(email, password)
       .then((response) => {
@@ -79,18 +88,27 @@ export default function LogIn() {
         router.replace("/home/");
       })
       .catch((error) => {
-        console.log("error");
+        
+        Alert.alert(
+          "Credenciales invalidas",
+          "La contraseña o el correo electronico son incorrectos",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
         console.log(error);
       });
   }
 
   useEffect(() => {
-    if (emailError || passwordError) {
+    if (emailError) {
       setBtnDisable(true);
     } else {
       setBtnDisable(false);
     }
-  }, [emailError, passwordError]);
+  }, [emailError]);
 
   return (
     <ScrollView
@@ -106,6 +124,7 @@ export default function LogIn() {
           mode="outlined"
           value={email}
           outlineColor="#fcaf43"
+          error={email == "" ? false : emailError}
           onChangeText={(text) =>
             handleFieldChange(text, setEmail, handleEmailError)
           }
@@ -116,14 +135,20 @@ export default function LogIn() {
           CustomPlaceholder="Contraseña"
           handlePasswordChange={handlePasswordChange}
         />
-        <Button
+        <TouchableOpacity
           style={style.widthFull}
-          mode="contained"
-          disabled={btnDisable}
-          onPress={() => handleLogin(email, password)}
+          activeOpacity={1}
+          onPress={handlePressDisabledButton}
         >
-          Ingresar
-        </Button>
+          <Button
+            style={style.widthFull}
+            mode="contained"
+            disabled={btnDisable}
+            onPress={() => handleLogin(email, password)}
+          >
+            Ingresar
+          </Button>
+        </TouchableOpacity>
       </SafeAreaView>
     </ScrollView>
   );
