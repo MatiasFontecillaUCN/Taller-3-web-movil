@@ -1,4 +1,4 @@
-import UpdateUserScreen from "../../components/home/UpdateUserScreen";
+import UpdateUserScreen from "../../components/home/user/UpdateUserScreen";
 
 export default function updateUser(){
     return <UpdateUserScreen/>

@@ -10,6 +10,7 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
 import { Link } from "expo-router";
+import PasswordInput from "../utils/PasswordInput";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 const img_Size = 150;
 
@@ -17,7 +18,7 @@ const compStyle = StyleSheet.create({
   img: {
     width: img_Size,
     height: img_Size * 1.17,
-  }
+  },
 });
 
 export default function LogIn() {
@@ -31,10 +32,6 @@ export default function LogIn() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  function handleShowPassword() {
-    setShowPassword((prev) => !prev);
-  }
-
   function handleEmailError(text: string) {
     setEmailError(false);
   }
@@ -43,6 +40,10 @@ export default function LogIn() {
     setPasswordError(false);
   }
 
+  function handlePasswordChange(text: string) {
+    setPassword(text);
+    handlePasswordError(text);
+  }
   function handleFieldChange(
     text: string,
     setField: Function,
@@ -53,7 +54,6 @@ export default function LogIn() {
       fieldError(text);
     }
   }
-
 
   useEffect(() => {
     if (emailError || passwordError) {
@@ -81,26 +81,13 @@ export default function LogIn() {
             handleFieldChange(text, setEmail, handleEmailError)
           }
         />
-        <TextInput
-          style={[style.widthFull, style.input]}
-          label="Contraseña"
-          placeholder={showPassword ? "Tu contraseña" : "********"}
-          placeholderTextColor={"#B2B2B2"}
-          mode="outlined"
-          value={password}
-          secureTextEntry={!showPassword}
-          outlineColor="#fcaf43"
-          onChangeText={(text) =>
-            handleFieldChange(text, setPassword, handlePasswordError)
-          }
-          right={
-            <TextInput.Icon
-              icon={showPassword ? "eye-off" : "eye"}
-              onPress={handleShowPassword}
-            />
-          }
+
+        <PasswordInput
+          password={password}
+          CustomPlaceholder="Contraseña Nueva"
+          handlePasswordChange={handlePasswordChange}
         />
-        <Link href='/home/' asChild replace={true}>
+        <Link href="/home/" asChild replace={true}>
           <Button
             style={style.widthFull}
             mode="contained"

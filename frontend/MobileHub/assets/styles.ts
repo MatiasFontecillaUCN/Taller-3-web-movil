@@ -23,6 +23,11 @@ const style = StyleSheet.create({
   appBar: {
     margin: 0,
   },
+  modal: {
+    marginTop: "20%",
+    marginBottom: "20%",
+    margin: "10%",
+  },
 });
 
 export default style;

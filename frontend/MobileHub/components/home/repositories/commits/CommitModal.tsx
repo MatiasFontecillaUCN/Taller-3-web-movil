@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Modal, Portal, Text } from "react-native-paper";
-import LoadingScreen from "../../../LoadingScreen";
 import Commit from "./Commits";
+import LoadingScreen from "../../../utils/LoadingScreen";
 
 interface Commit {
   message: string;

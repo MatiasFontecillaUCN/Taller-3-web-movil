@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { Appbar } from "react-native-paper";
-import style from "../assets/styles";
+import style from "../../assets/styles";
 
 function handelBack() {
   router.back();

@@ -1,4 +1,4 @@
-import style from "../../assets/styles";
+import style from "../../../assets/styles";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -8,9 +8,11 @@ import {
 } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LoadingScreen from "../LoadingScreen";
-import agent from "../../app/api/agent";
-const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
+import agent from "../../../app/api/agent";
+import CustomAppBar from "../../utils/CustomAppbar";
+import ChangePasswordModal from "./ChangePasswordModal";
+import LoadingScreen from "../../utils/LoadingScreen";
+const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
 const img_Size = 150;
 
@@ -31,6 +33,15 @@ export default function UpdateUserScreen() {
   const [updated, setUpdated] = useState(false);
 
   const [btnDisable, setBtnDisable] = useState(true);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -87,6 +98,7 @@ export default function UpdateUserScreen() {
       style={[style.widthFull]}
       automaticallyAdjustKeyboardInsets={true}
     >
+      <CustomAppBar />
       <SafeAreaView style={style.container}>
         <Image style={compStyle.img} source={MobileHubLogo} />
         <TextInput
@@ -131,6 +143,17 @@ export default function UpdateUserScreen() {
         >
           Editar Datos
         </Button>
+        <Button
+          style={style.widthFull}
+          mode="outlined"
+          onPress={() => showModal()}
+        >
+          Editar Contraseña
+        </Button>
+        <ChangePasswordModal
+          hideModal={hideModal}
+          isModalVisible={isModalVisible}
+        />
       </SafeAreaView>
     </ScrollView>
   );

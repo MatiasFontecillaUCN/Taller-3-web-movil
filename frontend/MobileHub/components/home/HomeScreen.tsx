@@ -10,9 +10,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import style from "../../assets/styles";
 import agent from "../../app/api/agent";
 import { useEffect, useState } from "react";
-import LoadingScreen from "../LoadingScreen";
 import Repositorie from "./repositories/Repositorie";
 import { Link } from "expo-router";
+import LoadingScreen from "../utils/LoadingScreen";
 interface Repository {
   name: string;
   createdAt: string;
