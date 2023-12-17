@@ -50,35 +50,7 @@ export default function RegisterScreen() {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
-  //   const { authenticated, setAuthenticated } = useContext(AuthContext);
-  //   const navigate = useNavigate();
 
-  /**
-   * Efecto para verificar la autenticación del usuario
-   */
-  // useEffect(() => {
-  //   const token = Cookies.get("token");
-  //   if (token) {
-  //     try {
-  //       const decodedToken = jwtDecode(token);
-  //       const dateNow = new Date();
-
-  //       if (decodedToken.exp < dateNow.getTime() / 1000) {
-  //         console.log("Token expired.");
-  //       } else {
-  //         setAuthenticated(true);
-  //         navigate("/client-list");
-  //       }
-  //     } catch {
-  //       setAuthenticated(false);
-  //     }
-  //   }
-  // }, [setAuthenticated, navigate]);
-
-  /**
-   * Efecto para habilitar o deshabilitar el botón de inicio de sesión
-   */
   useEffect(() => {
     if (emailError || rutError) {
       setBtnDisable(true);
@@ -87,23 +59,6 @@ export default function RegisterScreen() {
     }
   }, [emailError, rutError]);
 
-  /**
-   * Inicia sesión con el nombre de usuario y la contraseña proporcionados
-   * @param {string} username - El nombre de usuario
-   * @param {string} password - La contraseña
-   */
-  // function login(username, password) {
-  //   agent.Auth.auth(username, password)
-  //     .then((data) => {
-  //       Cookies.set("token", data);
-  //       setAuthenticated(true);
-  //       setLogInError(false);
-  //       navigate("/client-list");
-  //     })
-  //     .catch(() => {
-  //       setLogInError(true);
-  //     });
-  // }
 
   return (
     <ScrollView
