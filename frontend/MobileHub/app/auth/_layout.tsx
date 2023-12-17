@@ -1,4 +1,4 @@
-import { Link, Slot, router } from "expo-router";
+import { Slot, router } from "expo-router";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     margin:0,
   },
 });
-export default function HomeLayout() {
+export default function AuthLayout() {
   return (
     <>
       <Appbar.Header style={styles.appBar}>

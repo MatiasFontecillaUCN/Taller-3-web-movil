@@ -33,9 +33,9 @@ const User = {
     birthYear: number
   ) => requests.patch("/User/" + id, { email, fullname, birthYear }),
   getAll: () => requests.get("/User"),
-  delete: (id: string) => requests.delete("/User" + id),
   updatePassword: (id: string, password: string) =>
     requests.patch("/User/update-password/" + id, { password }),
+  getUser: (id: string) => requests.get("/User/" + id),
 };
 
 const Repositories = {
