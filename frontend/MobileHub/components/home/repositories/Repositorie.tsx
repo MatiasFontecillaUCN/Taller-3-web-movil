@@ -24,13 +24,19 @@ export default function Repositorie({
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [commits, setCommits] = useState<Commit[]>([]);
-  const [isModalLoading, setIsModalLoading] = useState(true)
+  const [isModalLoading, setIsModalLoading] = useState(true);
 
-  const formatedUpdatedAt = new Date(repositorie.updatedAt).toLocaleString("es-CL", { timeZone: "America/Santiago" })
-  const formatedCreatedAt= new Date(repositorie.createdAt).toLocaleString("es-CL", { timeZone: "America/Santiago" })
+  const formatedUpdatedAt = new Date(repositorie.updatedAt).toLocaleString(
+    "es-CL",
+    { timeZone: "America/Santiago" }
+  );
+  const formatedCreatedAt = new Date(repositorie.createdAt).toLocaleString(
+    "es-CL",
+    { timeZone: "America/Santiago" }
+  );
 
   const showModal = () => {
-    console.log("CARGANDO MODAL "+ repositorie.name)
+    console.log("CARGANDO MODAL " + repositorie.name);
     setIsModalVisible(true);
     setIsModalLoading(true);
     agent.Repositories.getCommits(repositorie.name)

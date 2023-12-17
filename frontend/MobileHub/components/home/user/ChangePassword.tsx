@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, ImageSourcePropType, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "react-native-paper";
@@ -47,11 +47,18 @@ const compStyle = StyleSheet.create({
 export default function ChangePassword({}: {}) {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const token = getValueFor("token");
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
-  if(token==null){
-    router.replace("/auth/login")
+  useEffect(() => {
+    (async () => {
+      const tokenValue = await getValueFor("token");
+      setToken(tokenValue);
+    })();
+  }, []);
+
+  if (token == null) {
+    router.replace("/auth/login");
   }
 
   function handlePasswordChange(text: string) {

@@ -12,7 +12,7 @@ import agent from "../../../app/api/agent";
 import CustomAppBar from "../../utils/CustomAppbar";
 import LoadingScreen from "../../utils/LoadingScreen";
 import { Link, useRouter } from "expo-router";
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 async function getValueFor(key: any) {
   let result = await SecureStore.getItemAsync(key);
@@ -40,13 +40,20 @@ export default function UpdateUserScreen() {
   const [birthYear, setBirthYear] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
   const [editPassword, setEditPassword] = useState(false);
   const [updated, setUpdated] = useState(false);
 
   const [btnDisable, setBtnDisable] = useState(true);
 
-  const token = getValueFor("token");
   const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      const tokenValue = await getValueFor("token");
+      setToken(tokenValue);
+    })();
+  }, []);
 
   if (token == null) {
     router.replace("/auth/login");

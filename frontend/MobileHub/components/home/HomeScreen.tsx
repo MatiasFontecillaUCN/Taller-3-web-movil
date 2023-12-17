@@ -45,15 +45,22 @@ const compStyle = StyleSheet.create({
 export default function HomeScreen() {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const token = getValueFor("token");
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
-  if(token==null){
-    router.replace("/auth/login")
+  useEffect(() => {
+    (async () => {
+      const tokenValue = await getValueFor("token");
+      setToken(tokenValue);
+    })();
+  }, []);
+
+  if (token == null) {
+    router.replace("/auth/login");
   }
 
-  async function handleLogout(){
-    save("token",null)
+  async function handleLogout() {
+    save("token", null);
   }
 
   useEffect(() => {
@@ -65,8 +72,6 @@ export default function HomeScreen() {
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
   }, []);
-
-
 
   if (isLoading) {
     return <LoadingScreen />;
