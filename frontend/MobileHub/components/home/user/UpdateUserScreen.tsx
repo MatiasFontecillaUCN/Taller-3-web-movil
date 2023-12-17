@@ -11,7 +11,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import agent from "../../../app/api/agent";
 import CustomAppBar from "../../utils/CustomAppbar";
 import LoadingScreen from "../../utils/LoadingScreen";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import * as SecureStore from 'expo-secure-store';
+
+async function getValueFor(key: any) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    return result;
+  } else {
+    return null;
+  }
+}
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
 const img_Size = 150;
@@ -34,6 +44,13 @@ export default function UpdateUserScreen() {
   const [updated, setUpdated] = useState(false);
 
   const [btnDisable, setBtnDisable] = useState(true);
+
+  const token = getValueFor("token");
+  const router = useRouter();
+
+  if (token == null) {
+    router.replace("/auth/login");
+  }
 
   useEffect(() => {
     setIsLoading(true);

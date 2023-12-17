@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MobileHub.src.data;
 using MobileHub.src.dto.repositories;
@@ -10,6 +11,7 @@ namespace MobileHub.src.controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class RepositoriesController : ControllerBase
     {
         private readonly DataContext _context;

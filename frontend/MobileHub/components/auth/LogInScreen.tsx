@@ -9,8 +9,23 @@ import {
 import { Button, Text, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { jwtDecode } from "jwt-decode";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import PasswordInput from "../utils/PasswordInput";
+import * as SecureStore from "expo-secure-store";
+import agent from "../../app/api/agent";
+import { useNavigation } from "@react-navigation/native";
+
+async function save(key: any, value: any) {
+  await SecureStore.setItemAsync(key, value);
+}
+async function getValueFor(key: any) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    return result;
+  } else {
+    return null;
+  }
+}
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 const img_Size = 150;
 
@@ -31,6 +46,8 @@ export default function LogIn() {
   const [btnDisable, setBtnDisable] = useState(true);
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   function handleEmailError(text: string) {
     setEmailError(false);
@@ -53,6 +70,18 @@ export default function LogIn() {
     if (fieldError) {
       fieldError(text);
     }
+  }
+
+  function handleLogin(email: string, password: string) {
+    agent.Auth.auth(email, password)
+      .then((response) => {
+        save("token", response);
+        router.replace("/home/");
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
   }
 
   useEffect(() => {
@@ -84,19 +113,17 @@ export default function LogIn() {
 
         <PasswordInput
           password={password}
-          CustomPlaceholder="Contraseña Nueva"
+          CustomPlaceholder="Contraseña"
           handlePasswordChange={handlePasswordChange}
         />
-        <Link href="/home/" asChild replace={true}>
-          <Button
-            style={style.widthFull}
-            mode="contained"
-            disabled={btnDisable}
-            // onPress={() => {}}
-          >
-            Ingresar
-          </Button>
-        </Link>
+        <Button
+          style={style.widthFull}
+          mode="contained"
+          disabled={btnDisable}
+          onPress={() => handleLogin(email, password)}
+        >
+          Ingresar
+        </Button>
       </SafeAreaView>
     </ScrollView>
   );

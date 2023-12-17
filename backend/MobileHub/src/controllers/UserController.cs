@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MobileHub.src.data;
 using MobileHub.src.dto.users;
@@ -8,6 +9,7 @@ namespace MobileHub.src.controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         /// <summary>

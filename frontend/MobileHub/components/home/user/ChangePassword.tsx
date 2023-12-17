@@ -6,8 +6,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import style from "../../../assets/styles";
 import PasswordInput from "../../utils/PasswordInput";
 import CustomAppBar from "../../utils/CustomAppbar";
-import changePassword from "../../../app/home/changePassword";
 import agent from "../../../app/api/agent";
+import * as SecureStore from "expo-secure-store";
+import { useRouter } from "expo-router";
+
+async function save(key: any, value: any) {
+  await SecureStore.setItemAsync(key, value);
+}
+async function getValueFor(key: any) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    return result;
+  } else {
+    return null;
+  }
+}
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
 const img_Size = 150;
@@ -34,6 +47,12 @@ const compStyle = StyleSheet.create({
 export default function ChangePassword({}: {}) {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const token = getValueFor("token");
+  const router = useRouter();
+
+  if(token==null){
+    router.replace("/auth/login")
+  }
 
   function handlePasswordChange(text: string) {
     setPassword(text);

@@ -11,8 +11,22 @@ import style from "../../assets/styles";
 import agent from "../../app/api/agent";
 import { useEffect, useState } from "react";
 import Repositorie from "./repositories/Repositorie";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import LoadingScreen from "../utils/LoadingScreen";
+import * as SecureStore from "expo-secure-store";
+import { useNavigation } from "@react-navigation/native";
+
+async function save(key: any, value: any) {
+  await SecureStore.setItemAsync(key, value);
+}
+async function getValueFor(key: any) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    return result;
+  } else {
+    return null;
+  }
+}
 interface Repository {
   name: string;
   createdAt: string;
@@ -31,6 +45,16 @@ const compStyle = StyleSheet.create({
 export default function HomeScreen() {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const token = getValueFor("token");
+  const router = useRouter();
+
+  if(token==null){
+    router.replace("/auth/login")
+  }
+
+  function handleLogout(){
+    save("token",null)
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -41,6 +65,8 @@ export default function HomeScreen() {
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
   }, []);
+
+
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -64,7 +90,7 @@ export default function HomeScreen() {
               icon="logout"
               mode="outlined"
               size={20}
-              onPress={() => console.log("Pressed")}
+              onPress={() => handleLogout()}
             />
           </Link>
         </View>
