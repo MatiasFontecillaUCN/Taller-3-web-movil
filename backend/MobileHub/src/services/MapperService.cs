@@ -44,12 +44,8 @@ namespace MobileHub.src.services
             return mappedUser;
         }
 
-        /// <summary>
-        /// Mapea un UserDto a un User.
-        /// </summary>
-        public User UserDtoToUser(UserDto userDto)
-        {
-            var mappedUser = _mapper.Map<User>(userDto);
+        public UserDto UserToUserDto(User user){
+            var mappedUser = _mapper.Map<UserDto>(user);
             return mappedUser;
         }
 

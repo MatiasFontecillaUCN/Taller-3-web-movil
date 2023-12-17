@@ -24,6 +24,8 @@ namespace MobileHub.src.services.interfaces
 
         List<CommitDto> MapCommits(List<GitHubCommit> commits);
 
+        UserDto UserToUserDto(User user);
+
 
     }
 }
