@@ -6,6 +6,7 @@ const style = StyleSheet.create({
     paddingRight: 20,
     paddingLeft: 20,
     alignItems: "center",
+    justifyContent: 'space-between',
     gap: 20,
   },
   widthFull: {
@@ -13,6 +14,12 @@ const style = StyleSheet.create({
   },
   input: {
     borderRadius: 5,
+  },
+  inline: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
   },
 });
 

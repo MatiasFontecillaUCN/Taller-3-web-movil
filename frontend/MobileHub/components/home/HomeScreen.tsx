@@ -1,5 +1,9 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import {
+  Button,
+  Drawer,
+  IconButton,
+  MD3Colors,
   Text,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -8,6 +12,7 @@ import agent from "../../app/api/agent";
 import { useEffect, useState } from "react";
 import LoadingScreen from "../LoadingScreen";
 import Repositorie from "./repositories/Repositorie";
+import { Link } from "expo-router";
 interface Repository {
   name: string;
   createdAt: string;
@@ -41,7 +46,25 @@ export default function HomeScreen() {
   return (
     <ScrollView>
       <SafeAreaView style={style.container}>
-        <Text variant="displaySmall">Repositorios</Text>
+        <View style={style.inline}>
+          <Link href="/home/updateUser" asChild replace={true}>
+            <IconButton
+              icon="account-edit"
+              mode="outlined"
+              size={20}
+              onPress={() => console.log("Pressed")}
+            />
+          </Link>
+          <Text variant="displaySmall">Repositorios</Text>
+          <Link href="/home/updateUser" asChild replace={true}>
+            <IconButton
+              icon="logout"
+              mode="outlined"
+              size={20}
+              onPress={() => console.log("Pressed")}
+            />
+          </Link>
+        </View>
         {repositories.map((r: Repository) => {
           return <Repositorie repositorie={r} key={r.name} />;
         })}
