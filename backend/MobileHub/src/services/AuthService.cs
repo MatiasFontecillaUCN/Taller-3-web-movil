@@ -44,7 +44,9 @@ namespace MobileHub.src.services
         /// <returns>Token de autenticación si las credenciales son válidas, null en caso contrario.</returns>
         public async Task<string?> Login(LoginDto loginDto)
         {
-            var user = await _userRepository.GetById(loginDto.Id);
+            Console.WriteLine(loginDto);
+
+            var user = await _userRepository.GetByEmail(loginDto.Id);
             if (user is null) return null;
 
             var result = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash);

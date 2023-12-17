@@ -12,22 +12,11 @@ namespace MobileHub.src.dto
     /// </summary>
     public class LoginDto
     {
-        private string id = string.Empty;
-
         /// <summary>
-        /// Representa el ID de un usuario en el sistema.
+        /// Representa el correo de un usuario en el sistema.
         /// </summary>
         [Required]
-        public string Id
-        {
-            get { return id; }
-
-            /// <summary>
-            /// Establece el ID de un usuario. Elimina cualquier punto o coma de la cadena de entrada.
-            /// </summary>
-            /// <value>El ID del usuario sin puntos ni comas.</value>
-            set { id = value.Replace(".", "").Replace(",",""); }
-        }
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Contraseña requerida para iniciar sesión.

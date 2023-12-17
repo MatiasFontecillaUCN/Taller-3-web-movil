@@ -88,7 +88,6 @@ export default function LogIn() {
         router.replace("/home/");
       })
       .catch((error) => {
-        
         Alert.alert(
           "Credenciales invalidas",
           "La contraseña o el correo electronico son incorrectos",

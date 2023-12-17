@@ -35,5 +35,11 @@ namespace MobileHub.src.repositories.interfaces
         /// Elimina un usuario existente.
         /// </summary>
         Task<User> Delete(User user);
+
+
+        /// <summary>
+        /// Obtiene un usuario por su correo electronico.
+        /// </summary>
+        Task<User?> GetByEmail(string email);
     }
 }

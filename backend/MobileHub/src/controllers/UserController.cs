@@ -50,6 +50,7 @@ namespace MobileHub.src.controllers
         /// </summary>
         /// <returns>Una lista de usuarios.</returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<List<UserDto>> GetAllUsers()
         {
             var users = await _userService.GetAll();

@@ -71,5 +71,14 @@ namespace MobileHub.src.repositories
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
+
+        /// <summary>
+        /// Obtiene un usuario por su correo electronico.
+        /// </summary>
+        public async Task<User?> GetByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return user;
+        }
     }
 }
