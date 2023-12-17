@@ -25,6 +25,7 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
   const [birthYear, setBirthYear] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(true);
   const [rutError, setRutError] = useState(true);
 
@@ -118,7 +119,7 @@ export default function RegisterScreen() {
           value={rut}
           outlineColor="#fcaf43"
           onChangeText={(text) =>
-            handleFieldChange(text, setRut, handleEmailError)
+            handleFieldChange(text, setRut, handleRutError)
           }
         />
         <TextInput
@@ -141,11 +142,19 @@ export default function RegisterScreen() {
         />
         <TextInput
           style={[style.widthFull, style.input]}
-          label="Password"
+          label="Año de Nacimiento"
           mode="outlined"
           value={birthYear}
           outlineColor="#fcaf43"
           onChangeText={(text) => handleFieldChange(text, setBirthYear, null)}
+        />
+        <TextInput
+          style={[style.widthFull, style.input]}
+          label="Password"
+          mode="outlined"
+          
+          outlineColor="#fcaf43"
+          onChangeText={(text) => handleFieldChange(text, setPassword, null)}
         />
         <Button
           style={style.widthFull}
