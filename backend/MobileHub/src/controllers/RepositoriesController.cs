@@ -29,7 +29,7 @@ namespace MobileHub.src.controllers
         }
 
 
-        [HttpGet("/{repositoryName}")]
+        [HttpGet("{repositoryName}")]
         public async Task<ActionResult<List<CommitDto>>> GetCommits(string repositoryName)
         {
             var commits = await _repositoriesService.GetCommits(repositoryName);

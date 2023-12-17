@@ -40,7 +40,7 @@ const User = {
 
 const Repositories = {
   getAll: () => requests.get("/Repositories"),
-  getCommits: (repoName: string) => requests.get("/" + repoName),
+  getCommits: (repoName: string) => requests.get("/Repositories/" + repoName),
 };
 
 export default {

@@ -73,14 +73,29 @@ namespace MobileHub.src.services
         {
             var mappedCommits = commits.Select(c =>
             {
-                var entity = new CommitDto
+                try
                 {
-                    Message = c.Commit.Message,
-                    CreatedAt = c.Commit.Author.Date,
-                    Author = c.Author.Login,
-                    AvatarUrl = c.Author.AvatarUrl
-                };
-                return entity;
+
+                    var entity = new CommitDto
+                    {
+                        Message = c.Commit.Message,
+                        CreatedAt = c.Commit.Author.Date,
+                        Author = c.Commit.Author.Name,
+                        AvatarUrl = c.Committer.AvatarUrl
+                    };
+                    return entity;
+                }
+                catch
+                {
+                    var entity = new CommitDto
+                    {
+                        Message = c.Commit.Message,
+                        CreatedAt = c.Commit.Author.Date,
+                        Author = c.Commit.Author.Name,
+                        AvatarUrl = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-icon.png"
+                    };
+                    return entity;
+                }
             }
 
             ).ToList();
