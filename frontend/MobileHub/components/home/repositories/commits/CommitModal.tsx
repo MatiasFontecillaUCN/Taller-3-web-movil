@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Modal, PaperProvider, Portal, Text } from "react-native-paper";
-import agent from "../../../../app/api/agent";
+import { Modal, Portal, Text } from "react-native-paper";
 import LoadingScreen from "../../../LoadingScreen";
-import Index from "../../../../app/home/index";
 import Commit from "./Commits";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Commit {
   message: string;
@@ -23,7 +19,6 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderRadius: 10, 
     borderColor:"#fcaf43",
     borderWidth:3,
   },

@@ -16,7 +16,7 @@ const style = StyleSheet.create({
     gap: 10,
   },
   text:{
-    color: "rgb(101, 109, 118)"
+    color: "rgb(101, 109, 118)",
   },
   noBorderRadius:{
     borderRadius:0,
