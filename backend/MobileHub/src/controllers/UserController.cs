@@ -81,7 +81,7 @@ namespace MobileHub.src.controllers
 
         [HttpPatch("update-password/{id}")]
         public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){
-            var succes = await _userService.UpdatePassword(updatePasswordDto, id);
+            var succes = await _userService.UpdatePassword(updatePasswordDto, id.Replace(".", "").Replace(",", ""));
             return succes;
         }
         

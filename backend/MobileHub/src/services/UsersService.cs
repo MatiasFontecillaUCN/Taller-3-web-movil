@@ -101,8 +101,11 @@ namespace MobileHub.src.services
             var user = await _usersRepository.GetById(id);
             if (user is null) throw new BadHttpRequestException("Usuario no encontrado");
 
+            var result = BCrypt.Net.BCrypt.Verify(updatePasswordDto.Password, user.PasswordHash);
+            if(!result) throw new BadHttpRequestException("Contraseña invalida");
+            Console.WriteLine("NewPassword = "+updatePasswordDto);
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(updatePasswordDto.Password, salt);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(updatePasswordDto.NewPassword, salt);
             user.PasswordSalt = salt;
             user.PasswordHash = passwordHash;
 

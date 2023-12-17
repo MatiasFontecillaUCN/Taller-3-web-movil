@@ -10,8 +10,8 @@ import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import agent from "../../../app/api/agent";
 import CustomAppBar from "../../utils/CustomAppbar";
-import ChangePasswordModal from "./ChangePasswordModal";
 import LoadingScreen from "../../utils/LoadingScreen";
+import { Link } from "expo-router";
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
 const img_Size = 150;
@@ -30,18 +30,10 @@ export default function UpdateUserScreen() {
   const [birthYear, setBirthYear] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [editPassword, setEditPassword] = useState(false);
   const [updated, setUpdated] = useState(false);
 
   const [btnDisable, setBtnDisable] = useState(true);
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const hideModal = () => {
-    setIsModalVisible(false);
-  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -141,19 +133,13 @@ export default function UpdateUserScreen() {
           disabled={btnDisable}
           onPress={() => updateUser(email, fullname, birthYear)}
         >
-          Editar Datos
+          Comfirmar cambios
         </Button>
-        <Button
-          style={style.widthFull}
-          mode="outlined"
-          onPress={() => showModal()}
-        >
-          Editar Contraseña
-        </Button>
-        <ChangePasswordModal
-          hideModal={hideModal}
-          isModalVisible={isModalVisible}
-        />
+        <Link href="/home/changePassword" asChild replace={false}>
+          <Button style={style.widthFull} mode="outlined">
+            Editar Contraseña
+          </Button>
+        </Link>
       </SafeAreaView>
     </ScrollView>
   );

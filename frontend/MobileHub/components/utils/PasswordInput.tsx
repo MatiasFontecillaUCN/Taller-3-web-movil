@@ -37,8 +37,8 @@ export default function PasswordInput({
   return (
     <TextInput
       style={[style.widthFull, style.input]}
-      label="Contraseña"
-      placeholder={showPassword ? CustomPlaceholder : "********"}
+      label={CustomPlaceholder}
+      placeholder={showPassword ? "Tu Contraseña" : "********"}
       placeholderTextColor={"#B2B2B2"}
       mode="outlined"
       value={password}

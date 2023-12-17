@@ -11,6 +11,11 @@ namespace MobileHub.src.dto.users
         /// Nueva contraseña del usuario.
         /// </summary>
         [Required]
+        public string NewPassword { get; set; } = string.Empty;
+        /// <summary>
+        /// Contraseña actual del usuario.
+        /// </summary>
+        [Required]
         public string Password { get; set; } = string.Empty;
     }
 }
