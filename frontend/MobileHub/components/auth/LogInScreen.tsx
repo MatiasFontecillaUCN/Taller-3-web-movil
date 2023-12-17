@@ -83,8 +83,11 @@ export default function LogIn() {
 
   function handleLogin(email: string, password: string) {
     agent.Auth.auth(email, password)
-      .then((response) => {
+      .then(async (response) => {
+        console.log("TOKEN = " + response);
         save("token", response);
+        let token = await getValueFor("token");
+        console.log("ALMACENADO = " + token);
         router.replace("/home/");
       })
       .catch((error) => {

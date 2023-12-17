@@ -52,7 +52,7 @@ export default function HomeScreen() {
     router.replace("/auth/login")
   }
 
-  function handleLogout(){
+  async function handleLogout(){
     save("token",null)
   }
 
