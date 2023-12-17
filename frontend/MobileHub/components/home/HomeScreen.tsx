@@ -24,6 +24,9 @@ const compStyle = StyleSheet.create({
     width: 300,
     height: 300,
   },
+  header: {
+    justifyContent: "space-between",
+  },
 });
 export default function HomeScreen() {
   const [repositories, setRepositories] = useState<Repository[]>([]);
@@ -45,9 +48,9 @@ export default function HomeScreen() {
 
   return (
     <ScrollView>
-      <SafeAreaView style={style.container}>
-        <View style={style.inline}>
-          <Link href="/home/updateUser" asChild replace={true}>
+      <SafeAreaView style={[style.container]}>
+        <View style={[style.inline, compStyle.header]} id="header">
+          <Link href="/home/updateUser" asChild replace={false}>
             <IconButton
               icon="account-edit"
               mode="outlined"
@@ -56,7 +59,7 @@ export default function HomeScreen() {
             />
           </Link>
           <Text variant="displaySmall">Repositorios</Text>
-          <Link href="/home/updateUser" asChild replace={true}>
+          <Link href="/" asChild replace={true}>
             <IconButton
               icon="logout"
               mode="outlined"
