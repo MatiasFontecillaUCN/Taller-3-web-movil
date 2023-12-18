@@ -63,15 +63,15 @@ export default function HomeScreen() {
     router.replace("/");
   }
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   agent.Repositories.getAll()
-  //     .then((response) => {
-  //       setRepositories(response);
-  //     })
-  //     .catch((error) => console.log(error))
-  //     .finally(() => setIsLoading(false));
-  // }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    agent.Repositories.getAll()
+      .then((response) => {
+        setRepositories(response);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen />;
