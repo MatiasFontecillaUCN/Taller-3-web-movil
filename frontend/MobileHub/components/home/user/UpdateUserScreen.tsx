@@ -50,9 +50,9 @@ export default function UpdateUserScreen() {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const emailValue = await getValueFor("email");
       if (emailValue) setEmail(emailValue);
-      console.log("EMAILVALUE " + emailValue);
       const tokenValue = await getValueFor("token");
       if (tokenValue == "") router.replace("/auth/login");
       else setToken(tokenValue);
@@ -61,9 +61,6 @@ export default function UpdateUserScreen() {
 
   useEffect(() => {
     if (token == null) return;
-    console.log(token);
-    console.log("EMAIL " + email);
-    setIsLoading(true);
     agent.User.getUser(email)
       .then((response) => {
         setRut(response.id);
@@ -90,8 +87,13 @@ export default function UpdateUserScreen() {
     }
   }
 
-  function updateUser(email: string, fullname: string, birthYear: string) {
-    agent.User.updateUser("11.111.111-1", email, fullname, Number(birthYear))
+  function updateUser(
+    rut: string,
+    email: string,
+    fullname: string,
+    birthYear: string
+  ) {
+    agent.User.updateUser(rut, email, fullname, Number(birthYear))
       .then(() => {
         console.log("Updated");
         setUpdated(true);
@@ -158,7 +160,7 @@ export default function UpdateUserScreen() {
           style={style.widthFull}
           mode="contained"
           disabled={btnDisable}
-          onPress={() => updateUser(email, fullname, birthYear)}
+          onPress={() => updateUser(rut, email, fullname, birthYear)}
         >
           Comfirmar cambios
         </Button>

@@ -66,7 +66,8 @@ namespace MobileHub.src.services
         /// <returns>Usuario actualizado.</returns>
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
-            var user = await _usersRepository.GetByEmail(id);
+            id = id.Replace(".", "").Replace(",", "");
+            var user = await _usersRepository.GetById(id);
             if (user == null) throw new BadHttpRequestException("Usuario no encontrado");
             user.Email = updateUserDto.Email;
             user.Fullname = updateUserDto.Fullname;
@@ -102,8 +103,8 @@ namespace MobileHub.src.services
             if (user is null) throw new BadHttpRequestException("Usuario no encontrado");
 
             var result = BCrypt.Net.BCrypt.Verify(updatePasswordDto.Password, user.PasswordHash);
-            if(!result) throw new BadHttpRequestException("Contraseña invalida");
-            Console.WriteLine("NewPassword = "+updatePasswordDto);
+            if (!result) throw new BadHttpRequestException("Contraseña invalida");
+            Console.WriteLine("NewPassword = " + updatePasswordDto);
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(updatePasswordDto.NewPassword, salt);
             user.PasswordSalt = salt;
