@@ -9,6 +9,7 @@ import CustomAppBar from "../../utils/CustomAppbar";
 import agent from "../../../app/api/agent";
 import * as SecureStore from "expo-secure-store";
 import { useRouter } from "expo-router";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 async function save(key: any, value: any) {
   await SecureStore.setItemAsync(key, value);
@@ -21,7 +22,12 @@ async function getValueFor(key: any) {
     return null;
   }
 }
+
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
+
+interface MyJwtPayload extends JwtPayload {
+  rut: string;
+}
 
 const img_Size = 150;
 
@@ -70,13 +76,20 @@ export default function ChangePassword({}: {}) {
   }
 
   function changePassword(newPassword: string, password: string) {
-    agent.User.updatePassword("21729131-3", newPassword, password)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (token == null) return;
+    const decodedToken = jwtDecode<MyJwtPayload>(token);
+    const dateNow = new Date();
+    if (decodedToken.exp && decodedToken.exp < dateNow.getTime() / 1000) {
+      console.log("Token expired.");
+    } else {
+      agent.User.updatePassword(decodedToken.rut, newPassword, password)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
   return (
     <ScrollView

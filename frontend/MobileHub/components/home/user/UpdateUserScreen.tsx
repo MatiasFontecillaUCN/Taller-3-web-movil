@@ -13,6 +13,7 @@ import CustomAppBar from "../../utils/CustomAppbar";
 import LoadingScreen from "../../utils/LoadingScreen";
 import { Link, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 async function getValueFor(key: any) {
   let result = await SecureStore.getItemAsync(key);
@@ -21,6 +22,10 @@ async function getValueFor(key: any) {
   } else {
     return null;
   }
+}
+
+interface MyJwtPayload extends JwtPayload {
+  rut: string;
 }
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
@@ -51,25 +56,29 @@ export default function UpdateUserScreen() {
   useEffect(() => {
     (async () => {
       const tokenValue = await getValueFor("token");
-      setToken(tokenValue);
+      if (tokenValue == "") router.replace("/auth/login");
+      else setToken(tokenValue);
     })();
   }, []);
 
-  if (token == null) {
-    router.replace("/auth/login");
-  }
-
   useEffect(() => {
     setIsLoading(true);
-    agent.User.getUser("11.111.111-1")
-      .then((response) => {
-        setRut(response.id);
-        setEmail(response.email);
-        setFullname(response.fullname);
-        setBirthYear(response.birthYear.toString());
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
+    if (token == null) return;
+    const decodedToken = jwtDecode<MyJwtPayload>(token);
+    const dateNow = new Date();
+    if (decodedToken.exp && decodedToken.exp < dateNow.getTime() / 1000) {
+      console.log("Token expired.");
+    } else {
+      agent.User.getUser(decodedToken.rut)
+        .then((response) => {
+          setRut(response.id);
+          setEmail(response.email);
+          setFullname(response.fullname);
+          setBirthYear(response.birthYear.toString());
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setIsLoading(false));
+    }
   }, []);
 
   function handleEmailError(text: string) {

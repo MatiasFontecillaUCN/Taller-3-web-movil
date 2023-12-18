@@ -51,16 +51,16 @@ export default function HomeScreen() {
   useEffect(() => {
     (async () => {
       const tokenValue = await getValueFor("token");
-      setToken(tokenValue);
+      if (tokenValue == '') router.replace("/auth/login");
+      else setToken(tokenValue);
     })();
   }, []);
 
-  if (token == null) {
-    router.replace("/auth/login");
-  }
-
   async function handleLogout() {
-    save("token", null);
+    await save("token", '');
+    let token = await getValueFor("token");
+    console.log(token);
+    router.replace("/");
   }
 
   useEffect(() => {
@@ -90,14 +90,12 @@ export default function HomeScreen() {
             />
           </Link>
           <Text variant="displaySmall">Repositorios</Text>
-          <Link href="/" asChild replace={true}>
-            <IconButton
-              icon="logout"
-              mode="outlined"
-              size={20}
-              onPress={() => handleLogout()}
-            />
-          </Link>
+          <IconButton
+            icon="logout"
+            mode="outlined"
+            size={20}
+            onPress={() => handleLogout()}
+          />
         </View>
         {repositories.map((r: Repository) => {
           return <Repositorie repositorie={r} key={r.name} />;

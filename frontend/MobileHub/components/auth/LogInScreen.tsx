@@ -43,10 +43,9 @@ export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(true);
-
   const [btnDisable, setBtnDisable] = useState(true);
-
   const [showPassword, setShowPassword] = useState(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
 
   const router = useRouter();
 
@@ -85,9 +84,7 @@ export default function LogIn() {
     agent.Auth.auth(email, password)
       .then(async (response) => {
         console.log("TOKEN = " + response);
-        save("token", response);
-        let token = await getValueFor("token");
-        console.log("ALMACENADO = " + token);
+        await save("token", response);
         router.replace("/home/");
       })
       .catch((error) => {
@@ -103,6 +100,14 @@ export default function LogIn() {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    (async () => {
+      const tokenValue = await getValueFor("token");
+      console.log(tokenValue);
+      if (tokenValue) router.replace("/home/");
+    })();
+  }, []);
 
   useEffect(() => {
     if (emailError) {
