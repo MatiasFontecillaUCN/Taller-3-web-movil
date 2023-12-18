@@ -9,6 +9,7 @@ import {
 import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Cookies from "js-cookie";
+import agent from "../../app/api/agent";
 const MobileHubLogo: ImageSourcePropType = require("../../assets/images/MobileHub.png");
 
 const img_Size = 150;
@@ -17,7 +18,7 @@ const compStyle = StyleSheet.create({
   img: {
     width: img_Size,
     height: img_Size * 1.17,
-  }
+  },
 });
 
 export default function RegisterScreen() {
@@ -25,7 +26,6 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
   const [birthYear, setBirthYear] = useState("");
-  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(true);
   const [rutError, setRutError] = useState(true);
 
@@ -50,6 +50,20 @@ export default function RegisterScreen() {
     }
   }
 
+  function handleRegister(
+    rut: string,
+    email: string,
+    fullname: string,
+    birthYear: string
+  ) {
+    agent.User.register(rut, email, fullname, Number(birthYear))
+      .then(() => {
+        console.log("EXITO");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     if (emailError || rutError) {
@@ -58,7 +72,6 @@ export default function RegisterScreen() {
       setBtnDisable(false);
     }
   }, [emailError, rutError]);
-
 
   return (
     <ScrollView
@@ -103,19 +116,11 @@ export default function RegisterScreen() {
           outlineColor="#fcaf43"
           onChangeText={(text) => handleFieldChange(text, setBirthYear, null)}
         />
-        <TextInput
-          style={[style.widthFull, style.input]}
-          label="Password"
-          mode="outlined"
-          
-          outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setPassword, null)}
-        />
         <Button
           style={style.widthFull}
           mode="contained"
           disabled={btnDisable}
-          // onPress={() => {}}
+          onPress={() => handleRegister(rut, email, fullname, birthYear)}
         >
           Crear cuenta
         </Button>
