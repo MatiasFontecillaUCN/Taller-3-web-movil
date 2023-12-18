@@ -85,6 +85,7 @@ export default function LogIn() {
       .then(async (response) => {
         console.log("TOKEN = " + response);
         await save("token", response);
+        await save("email", email);
         router.replace("/home/");
       })
       .catch((error) => {

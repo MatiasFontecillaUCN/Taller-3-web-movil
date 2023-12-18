@@ -13,7 +13,6 @@ import CustomAppBar from "../../utils/CustomAppbar";
 import LoadingScreen from "../../utils/LoadingScreen";
 import { Link, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { JwtPayload, jwtDecode } from "jwt-decode";
 
 async function getValueFor(key: any) {
   let result = await SecureStore.getItemAsync(key);
@@ -22,10 +21,6 @@ async function getValueFor(key: any) {
   } else {
     return null;
   }
-}
-
-interface MyJwtPayload extends JwtPayload {
-  rut: string;
 }
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
@@ -55,6 +50,9 @@ export default function UpdateUserScreen() {
 
   useEffect(() => {
     (async () => {
+      const emailValue = await getValueFor("email");
+      if (emailValue) setEmail(emailValue);
+      console.log("EMAILVALUE " + emailValue);
       const tokenValue = await getValueFor("token");
       if (tokenValue == "") router.replace("/auth/login");
       else setToken(tokenValue);
@@ -62,24 +60,20 @@ export default function UpdateUserScreen() {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
     if (token == null) return;
-    const decodedToken = jwtDecode<MyJwtPayload>(token);
-    const dateNow = new Date();
-    if (decodedToken.exp && decodedToken.exp < dateNow.getTime() / 1000) {
-      console.log("Token expired.");
-    } else {
-      agent.User.getUser(decodedToken.rut)
-        .then((response) => {
-          setRut(response.id);
-          setEmail(response.email);
-          setFullname(response.fullname);
-          setBirthYear(response.birthYear.toString());
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setIsLoading(false));
-    }
-  }, []);
+    console.log(token);
+    console.log("EMAIL " + email);
+    setIsLoading(true);
+    agent.User.getUser(email)
+      .then((response) => {
+        setRut(response.id);
+        setEmail(response.email);
+        setFullname(response.fullname);
+        setBirthYear(response.birthYear.toString());
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
+  }, [token]);
 
   function handleEmailError(text: string) {
     setEmailError(false);

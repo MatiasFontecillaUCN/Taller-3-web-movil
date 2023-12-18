@@ -66,7 +66,7 @@ namespace MobileHub.src.services
         /// <returns>Usuario actualizado.</returns>
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
-            var user = await _usersRepository.GetById(id);
+            var user = await _usersRepository.GetByEmail(id);
             if (user == null) throw new BadHttpRequestException("Usuario no encontrado");
             user.Email = updateUserDto.Email;
             user.Fullname = updateUserDto.Fullname;
@@ -83,7 +83,7 @@ namespace MobileHub.src.services
         /// <returns>Usuario obtenido.</returns>
         public async Task<UserDto?> GetUser(string id)
         {
-            var user = await _usersRepository.GetById(id);
+            var user = await _usersRepository.GetByEmail(id);
             if (user == null) throw new BadHttpRequestException("Ese usuario no existe");
             var mappedUser = _mapperService.UserToUserDto(user);
 
@@ -98,7 +98,7 @@ namespace MobileHub.src.services
         /// <returns>Verdadero si la contraseña se actualizó correctamente, falso en caso contrario.</returns>
         public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto, string id)
         {
-            var user = await _usersRepository.GetById(id);
+            var user = await _usersRepository.GetByEmail(id);
             if (user is null) throw new BadHttpRequestException("Usuario no encontrado");
 
             var result = BCrypt.Net.BCrypt.Verify(updatePasswordDto.Password, user.PasswordHash);
