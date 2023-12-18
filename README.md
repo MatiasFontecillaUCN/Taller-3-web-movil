@@ -25,7 +25,7 @@ Inicialmente se prepará el backend, para ello se deberá ejecutar los siguentes
 Se debe estar en el directorio raiz de la aplicacion
 
 ```+
-cd backend/MobileHub/
+cd Taller-3-web-movil/backend/MobileHub/
 ```
 
 ### Copiar .env
@@ -62,7 +62,7 @@ En una nueva consola que debe estar en el directorio raiz
 Entrar a la carpeta del frontend
 
 ```+
-cd frontend/MobileHub/
+cd Taller-3-web-movil/frontend/MobileHub/
 ```
 
 ### Instalar dependencias de react-native
