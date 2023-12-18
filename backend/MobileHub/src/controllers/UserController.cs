@@ -66,7 +66,7 @@ namespace MobileHub.src.controllers
         [HttpPatch("{id}")]
         public async Task<User?> UpdateUser(UpdateUserDto updateUserDto, string id)
         {
-            var user = await _userService.UpdateUser(updateUserDto, id.Replace(".", "").Replace(",", ""));
+            var user = await _userService.UpdateUser(updateUserDto, id);
             return user;
         }
 
@@ -78,13 +78,13 @@ namespace MobileHub.src.controllers
         [HttpGet("{id}")]
         public async Task<UserDto?> GetUser(string id)
         {
-            var user = await _userService.GetUser(id.Replace(".", "").Replace(",", ""));
+            var user = await _userService.GetUser(id);
             return user;
         }
 
         [HttpPatch("update-password/{id}")]
         public async Task<bool> UpdatePassword(UpdatePasswordDto updatePasswordDto,string id){
-            var succes = await _userService.UpdatePassword(updatePasswordDto, id.Replace(".", "").Replace(",", ""));
+            var succes = await _userService.UpdatePassword(updatePasswordDto, id);
             return succes;
         }
         
