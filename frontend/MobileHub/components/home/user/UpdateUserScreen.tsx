@@ -25,6 +25,7 @@ async function getValueFor(key: any) {
 const MobileHubLogo: ImageSourcePropType = require("../../../assets/images/MobileHub.png");
 
 const img_Size = 150;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const compStyle = StyleSheet.create({
   img: {
@@ -37,7 +38,9 @@ export default function UpdateUserScreen() {
   const [rut, setRut] = useState("");
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
+  const [fullnameError, setFullnameError] = useState(false);
   const [birthYear, setBirthYear] = useState("");
+  const [birthYearError, setBirthYearError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState<string | null>(null);
@@ -60,6 +63,14 @@ export default function UpdateUserScreen() {
   }, []);
 
   useEffect(() => {
+    if (emailError || fullnameError || birthYearError) {
+      setBtnDisable(true);
+    } else {
+      setBtnDisable(false);
+    }
+  }, [emailError, fullnameError, birthYearError]);
+
+  useEffect(() => {
     if (token == null) return;
     agent.User.getUser(email)
       .then((response) => {
@@ -73,7 +84,21 @@ export default function UpdateUserScreen() {
   }, [token]);
 
   function handleEmailError(text: string) {
-    setEmailError(false);
+    let valid = false;
+    valid = !emailRegex.test(text);
+    setEmailError(valid);
+  }
+
+  function handleNameError(text: string) {
+    if (fullname == "") return;
+    setFullnameError(!(text.length >= 10));
+  }
+
+  function handleBirthYearError(text: string) {
+    if (birthYear == "") return;
+    const value = Number(text);
+    const currentYear = new Date().getFullYear();
+    setBirthYearError((value > 1900 || value < currentYear));
   }
 
   function handleFieldChange(
@@ -104,14 +129,6 @@ export default function UpdateUserScreen() {
       });
   }
 
-  useEffect(() => {
-    if (emailError) {
-      setBtnDisable(true);
-    } else {
-      setBtnDisable(false);
-    }
-  }, [emailError]);
-
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -135,6 +152,7 @@ export default function UpdateUserScreen() {
           label="Email"
           mode="outlined"
           value={email}
+          error={email == "" ? false : emailError}
           outlineColor="#fcaf43"
           onChangeText={(text) =>
             handleFieldChange(text, setEmail, handleEmailError)
@@ -145,16 +163,20 @@ export default function UpdateUserScreen() {
           label="Nombre"
           mode="outlined"
           value={fullname}
+          error={fullname == "" ? false : fullnameError}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setFullname, null)}
+          onChangeText={(text) =>
+            handleFieldChange(text, setFullname, handleNameError)
+          }
         />
         <TextInput
           style={[style.widthFull, style.input]}
           label="Año de Nacimiento"
           mode="outlined"
           value={birthYear}
+          error={birthYear == "" ? false : birthYearError}
           outlineColor="#fcaf43"
-          onChangeText={(text) => handleFieldChange(text, setBirthYear, null)}
+          onChangeText={(text) => handleFieldChange(text, setBirthYear, handleBirthYearError)}
         />
         <Button
           style={style.widthFull}

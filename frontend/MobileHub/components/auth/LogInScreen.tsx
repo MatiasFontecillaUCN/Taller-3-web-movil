@@ -52,7 +52,6 @@ export default function LogIn() {
   function handleEmailError(text: string) {
     let valid = false;
     valid = !emailRegex.test(text);
-    console.log(text + " ES " + valid);
     setEmailError(valid);
   }
 
@@ -83,7 +82,6 @@ export default function LogIn() {
   function handleLogin(email: string, password: string) {
     agent.Auth.auth(email, password)
       .then(async (response) => {
-        console.log("TOKEN = " + response);
         await save("token", response);
         await save("email", email);
         router.replace("/home/");
@@ -105,7 +103,6 @@ export default function LogIn() {
   useEffect(() => {
     (async () => {
       const tokenValue = await getValueFor("token");
-      console.log(tokenValue);
       if (tokenValue) router.replace("/home/");
     })();
   }, []);
