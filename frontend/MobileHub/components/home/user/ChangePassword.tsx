@@ -53,19 +53,19 @@ const compStyle = StyleSheet.create({
 export default function ChangePassword({}: {}) {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     (async () => {
+      const emailValue = await getValueFor("email");
+      if (emailValue) setEmail(emailValue);
       const tokenValue = await getValueFor("token");
-      setToken(tokenValue);
+      if (tokenValue == "") router.replace("/auth/login");
+      else setToken(tokenValue);
     })();
   }, []);
-
-  if (token == null) {
-    router.replace("/auth/login");
-  }
 
   function handlePasswordChange(text: string) {
     setPassword(text);
@@ -77,19 +77,13 @@ export default function ChangePassword({}: {}) {
 
   function changePassword(newPassword: string, password: string) {
     if (token == null) return;
-    const decodedToken = jwtDecode<MyJwtPayload>(token);
-    const dateNow = new Date();
-    if (decodedToken.exp && decodedToken.exp < dateNow.getTime() / 1000) {
-      console.log("Token expired.");
-    } else {
-      agent.User.updatePassword(decodedToken.rut, newPassword, password)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    agent.User.updatePassword(email, newPassword, password)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   return (
     <ScrollView
