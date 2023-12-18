@@ -35,6 +35,12 @@ export default function Repositorie({
     { timeZone: "America/Santiago" }
   );
 
+  /**
+   * Función para mostrar el modal de commits.
+   * Primero, establece `isModalVisible` y `isModalLoading` en true para mostrar el modal y la pantalla de carga.
+   * Luego, hace una solicitud para obtener los commits del repositorio.
+   * Cuando la respuesta es recibida, establece los commits y oculta la pantalla de carga.
+   */
   const showModal = () => {
     console.log("CARGANDO MODAL " + repositorie.name);
     setIsModalVisible(true);
@@ -46,6 +52,11 @@ export default function Repositorie({
       .catch((error) => console.log(error))
       .finally(() => setIsModalLoading(false));
   };
+
+  /**
+   * Función para ocultar el modal de commits.
+   * Simplemente establece `isModalVisible` en false.
+   */
   const hideModal = () => {
     setIsModalVisible(false);
   };

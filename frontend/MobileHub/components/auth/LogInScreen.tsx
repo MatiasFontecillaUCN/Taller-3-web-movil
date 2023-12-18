@@ -17,9 +17,23 @@ import * as SecureStore from "expo-secure-store";
 import agent from "../../app/api/agent";
 import { useNavigation } from "@react-navigation/native";
 
+/**
+ * Función para guardar un valor en SecureStore.
+ *
+ * @param {any} key - La clave bajo la cual se guardará el valor.
+ * @param {any} value - El valor que se guardará.
+ */
 async function save(key: any, value: any) {
   await SecureStore.setItemAsync(key, value);
 }
+
+/**
+ * Función para obtener un valor de SecureStore.
+ *
+ * @param {any} key - La clave del valor que se obtendrá.
+ * @returns {Promise<string | null>} - Retorna una promesa que se resuelve en el valor guardado bajo la clave proporcionada.
+ * Si no se encuentra ningún valor, se resuelve en null.
+ */
 async function getValueFor(key: any) {
   let result = await SecureStore.getItemAsync(key);
   if (result) {
@@ -49,15 +63,33 @@ export default function LogIn() {
 
   const router = useRouter();
 
+  /**
+   * Función para manejar errores de correo electrónico.
+   *
+   * @param {string} text - El texto del correo electrónico a validar.
+   */
   function handleEmailError(text: string) {
     let valid = false;
     valid = !emailRegex.test(text);
     setEmailError(valid);
   }
 
+  /**
+   * Función para manejar el cambio de contraseña.
+   *
+   * @param {string} text - La nueva contraseña.
+   */
   function handlePasswordChange(text: string) {
     setPassword(text);
   }
+
+  /**
+   * Función para manejar el cambio de campo.
+   *
+   * @param {string} text - El nuevo valor del campo.
+   * @param {Function} setField - La función para establecer el nuevo valor del campo.
+   * @param {Function | null} fieldError - La función para manejar errores del campo.
+   */
   function handleFieldChange(
     text: string,
     setField: Function,
@@ -69,6 +101,9 @@ export default function LogIn() {
     }
   }
 
+  /**
+   * Función para manejar el presionado del botón deshabilitado.
+   */
   function handlePressDisabledButton() {
     if (btnDisable) {
       Alert.alert("", "Debe ingresar un correo electronico valido", [
@@ -79,6 +114,12 @@ export default function LogIn() {
     }
   }
 
+  /**
+   * Función para manejar el inicio de sesión.
+   *
+   * @param {string} email - El correo electrónico del usuario.
+   * @param {string} password - La contraseña del usuario.
+   */
   function handleLogin(email: string, password: string) {
     agent.Auth.auth(email, password)
       .then(async (response) => {
@@ -100,6 +141,9 @@ export default function LogIn() {
       });
   }
 
+  /**
+   * Efecto para redirigir al usuario a la página de inicio si ya tiene un token.
+   */
   useEffect(() => {
     (async () => {
       const tokenValue = await getValueFor("token");

@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Modal, Portal, Text, TextInput } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
 import style from "../../assets/styles";
 
 const compStyle = StyleSheet.create({
@@ -20,6 +18,17 @@ const compStyle = StyleSheet.create({
   },
 });
 
+/**
+ * Componente de entrada de contraseña.
+ *
+ * Este componente muestra un campo de entrada de texto para la contraseña.
+ * El usuario puede mostrar u ocultar la contraseña haciendo clic en el icono del ojo.
+ *
+ * @param {string} password - La contraseña.
+ * @param {string} CustomPlaceholder - El marcador de posición personalizado para el campo de entrada de texto.
+ * @param {Function} handlePasswordChange - La función que se llama cuando cambia el valor del campo de entrada de texto.
+ * @returns {JSX.Element} El componente de entrada de contraseña.
+ */
 export default function PasswordInput({
   password,
   CustomPlaceholder,
@@ -31,6 +40,10 @@ export default function PasswordInput({
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
+  /**
+   * Función para manejar el cambio de estado de showPassword.
+   * Invierte el valor actual de showPassword.
+   */
   function handleShowPassword() {
     setShowPassword((prev) => !prev);
   }

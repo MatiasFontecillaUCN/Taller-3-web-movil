@@ -31,14 +31,31 @@ export default function RegisterScreen() {
 
   const [btnDisable, setBtnDisable] = useState(true);
 
+  /**
+   * Función para manejar errores de correo electrónico.
+   *
+   * @param {string} text - El texto del correo electrónico a validar.
+   */
   function handleEmailError(text: string) {
     setEmailError(false);
   }
 
+  /**
+   * Función para manejar errores de RUT.
+   *
+   * @param {string} text - El texto del RUT a validar.
+   */
   function handleRutError(text: string) {
     setRutError(false);
   }
 
+  /**
+   * Función para manejar el cambio de campo.
+   *
+   * @param {string} text - El nuevo valor del campo.
+   * @param {Function} setField - La función para establecer el nuevo valor del campo.
+   * @param {Function | null} fieldError - La función para manejar errores del campo.
+   */
   function handleFieldChange(
     text: string,
     setField: Function,
@@ -50,6 +67,14 @@ export default function RegisterScreen() {
     }
   }
 
+  /**
+   * Función para manejar el registro de usuarios.
+   *
+   * @param {string} rut - El RUT del usuario.
+   * @param {string} email - El correo electrónico del usuario.
+   * @param {string} fullname - El nombre completo del usuario.
+   * @param {string} birthYear - El año de nacimiento del usuario.
+   */
   function handleRegister(
     rut: string,
     email: string,
@@ -65,6 +90,9 @@ export default function RegisterScreen() {
       });
   }
 
+  /**
+   * Efecto para deshabilitar el botón si hay un error de correo electrónico o RUT.
+   */
   useEffect(() => {
     if (emailError || rutError) {
       setBtnDisable(true);
