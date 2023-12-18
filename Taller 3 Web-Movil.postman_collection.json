@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "a956f399-5ac9-4ea5-bdf2-b7b14ab07ecc",
+		"name": "Taller 3 Web/Movil",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30263810"
+	},
+	"item": [
+		{
+			"name": "TokenBearer",
+			"item": [
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/User/?id=example@ucn.cl",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"User",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "example@ucn.cl"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Repositories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJydXQiOiJhIiwiZXhwIjoxNzAyODczNzExfQ.pV40Jx6vf6t-mw-txMU-nFW0GbmSZckVxaCKlnscC6Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/Repositories",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"Repositories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Commits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJydXQiOiJhIiwiZXhwIjoxNzAyODczNzExfQ.pV40Jx6vf6t-mw-txMU-nFW0GbmSZckVxaCKlnscC6Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/Repositories?repositoryName=Hackaton",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"Repositories"
+							],
+							"query": [
+								{
+									"key": "repositoryName",
+									"value": "Hackaton"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/User",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/User",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.30:5017/User",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"30"
+							],
+							"port": "5017",
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJydXQiOiJhIiwiZXhwIjoxNzAyODczNzExfQ.pV40Jx6vf6t-mw-txMU-nFW0GbmSZckVxaCKlnscC6Y",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"example@ucn.cl\",\n    \"password\":\"a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.0.30:5017/Auth",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"30"
+					],
+					"port": "5017",
+					"path": [
+						"Auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJydXQiOiJhIiwiZXhwIjoxNzAyODczNzExfQ.pV40Jx6vf6t-mw-txMU-nFW0GbmSZckVxaCKlnscC6Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"13502615-8\",\n  \"email\": \"string@ucn.cl\",\n  \"fullname\": \"stringstri\",\n  \"birthYear\": 1950\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.0.30:5017/User",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"30"
+					],
+					"port": "5017",
+					"path": [
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.0.30:5017/User",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"30"
+					],
+					"port": "5017",
+					"path": [
+						"User"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJydXQiOiJhIiwiZXhwIjoxNzAyODczNzExfQ.pV40Jx6vf6t-mw-txMU-nFW0GbmSZckVxaCKlnscC6Y",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
