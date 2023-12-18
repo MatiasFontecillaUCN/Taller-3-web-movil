@@ -68,13 +68,13 @@ cd Taller-3-web-movil/frontend/MobileHub/
 ### Instalar dependencias de react-native
 
 ```+
-$ npm install
+npm install
 ```
 
 ### Iniciar aplicacion
 
 ```+
-$ npx expo start
+npx expo start
 ```
 
 ### Ademas de el .env se debe cambiar la ip en los siguentes lugares
